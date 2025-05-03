@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ropa para Niños - Armario de Chiapas</title>
+    <style>
+        :root {
+            --primary-color: #8B0000;
+            --secondary-color: #2c3e50;
+            --background-color: #f9f3f0;
+            --text-color: #333;
+            --white: #fff;
+            --gold-accent: #FFD700;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 300px; /* Aumentado el tamaño del cuadro de la imagen */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Asegura que la imagen se ajuste dentro del contenedor sin recortarse */
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .top-nav {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 12px;
+        }
+        
+        .top-nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.95em;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .top-nav a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .top-nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .top-nav a:hover::before {
+            left: 100%;
+        }
+        
+        .top-nav a i {
+            margin-right: 6px;
+            font-size: 1em;
+        }
+        
+        .cart-count {
+            background-color: var(--gold-accent);
+            color: #333;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 0.8em;
+            margin-left: 6px;
+            font-weight: bold;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .top-nav a:hover .cart-count {
+            transform: scale(1.1) rotate(10deg);
+        }
+        
+        h1, h2 {
+            color: var(--primary-color);
+            text-align: center;
+        }
+        
+        h1 {
+            margin-top: 30px;
+            font-size: 2.2rem;
+        }
+        
+        .store-title {
+            color: #FFFFFF;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+            margin: 0;
+            font-size: 2.8em;
+        }
+        
+        .store-title a {
+            color: inherit;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .store-title a:hover {
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .product-card {
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            padding: 20px; /* Añadido padding para más espacio dentro del contenedor */
+            max-width: 350px; /* Puedes ajustar el tamaño máximo del contenedor si lo prefieres */
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .product-content {
+            padding: 20px;
+        }
+        
+        .product-title {
+            font-size: 1.3rem;
+            margin: 0 0 10px 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .product-price {
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin: 15px 0;
+        }
+        
+        .size-options-container {
+            margin: 15px 0;
+        }
+        
+        .size-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .size-label {
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .size-tag {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+        }
+        
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+        
+        .quantity-btn:hover {
+            background-color: #eee;
+        }
+        
+        .quantity-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .quantity-input {
+            width: 40px;
+            height: 30px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        
+        .stock-info {
+            font-size: 0.9rem;
+            color: #555;
+            margin: 15px 0;
+        }
+        
+        .size-stock {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 10px;
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        
+        .size-stock strong {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--primary-color);
+        }
+        
+        .in-stock {
+            color: #28a745;
+            font-weight: bold;
+        }
+        
+        .out-of-stock {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        
+        .remaining-stock {
+            font-size: 0.8em;
+            color: #666;
+            margin-left: 5px;
+        }
+        
+        .add-to-cart {
+            display: block;
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+            font-size: 1rem;
+        }
+        
+        .add-to-cart:hover {
+            background-color: #6d0000;
+        }
+        
+        .back-btn-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        .back-btn:hover {
+            background-color: #6d0000;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        footer {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            padding: 25px 0;
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        #btnSubir {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            border: none;
+        }
+        
+        #btnSubir:hover {
+            background-color: #6d0000;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        #btnSubir.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        
+            h1 {
+                font-size: 1.8rem;
+            }
+        
+            .top-nav {
+                position: static;
+                justify-content: center;
+                margin-top: 15px;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+        
+            .top-nav a {
+                padding: 6px 12px;
+                font-size: 0.85em;
+            }
+        }
+        /* Estilos del botón "Volver arriba" - MOVIDOS FUERA DEL MEDIA QUERY */
+        #btnSubir {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 9999;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            border: none;
+        }
+        
+        #btnSubir:hover {
+            background-color: #6d0000;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        #btnSubir.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        
+    </style>
+    <!-- Font Awesome para los iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="top-nav">
+            <a href="cuenta.html"><i class="fas fa-user-circle"></i> Mi cuenta</a>
+            <a href="pedidos.html"><i class="fas fa-clipboard-list"></i> Pedidos</a>
+            <a href="carrito.html"><i class="fas fa-shopping-cart"></i> Carrito <span id="cart-count" class="cart-count">0</span></a>
+        </div>
+        <div class="container">
+            <h1 class="store-title"><a href="success.html">ARMARIO DE CHIAPAS</a></h1>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1>Ropa para Niños y Niñas</h1>
+     
+        
+        <div class="product-grid">
+
+           <!-- Producto 1 -->
+           <div class="product-card" data-id="1" data-name="Guayabera Artesanal De Niño" data-price="1200">
+            <div class="product-image">
+                <img src="https://http2.mlstatic.com/D_NQ_NP_2X_656960-MLM77201231057_062024-F-guayabera-artesanal-de-nino-tallas-1-12.webp" alt="Guayabera Artesanal De Niño">
+            </div>
+            <div class="product-content">
+                <h3 class="product-title">Guayabera Artesanal De Niño</h3>
+                <p class="product-price">$1,200</p>
+
+        <div class="size-options-container">
+            <div class="size-option" data-size="2-4" data-stock="20">
+                <span class="size-label">
+                    <span class="size-tag">2-4</span>
+                    <span class="stock-status in-stock">(Disponible)</span>
+                    <span class="remaining-stock">(20 disponibles)</span>
+                </span>
+                <div class="quantity-controls">
+                    <button class="quantity-btn minus-btn" data-size="2-4">-</button>
+                    <input type="number" class="quantity-input" data-size="2-4" value="0" min="0" max="20">
+                    <button class="quantity-btn plus-btn" data-size="2-4">+</button>
+                </div>
+            </div>
+            
+            <div class="size-option" data-size="5-7" data-stock="20">
+                <span class="size-label">
+                    <span class="size-tag">5-7</span>
+                    <span class="stock-status in-stock">(Disponible)</span>
+                    <span class="remaining-stock">(20 disponibles)</span>
+                </span>
+                <div class="quantity-controls">
+                    <button class="quantity-btn minus-btn" data-size="5-7">-</button>
+                    <input type="number" class="quantity-input" data-size="5-7" value="0" min="0" max="20">
+                    <button class="quantity-btn plus-btn" data-size="5-7">+</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="stock-info">
+            <strong>Cantidad total disponible:</strong> <span class="total-stock">40</span>
+        </div>
+        
+        <div class="size-stock">
+            <strong>Stock por talla</strong>
+            2-4: <span class="size-2-4-stock">20</span>, 5-7: <span class="size-5-7-stock">20</span>
+        </div>
+        
+        <button class="add-to-cart">Añadir al carrito</button>
+    </div>
+</div>
+
+<!-- Producto 2 -->
+<div class="product-card" data-id="2" data-name="Camisa Guallavera Artesanal chiapaneca Para Niño" data-price="800">
+    <div class="product-image">
+        <img src="https://http2.mlstatic.com/D_NQ_NP_2X_745222-MLM79845217782_102024-F-camisa-guallavera-artesanal-para-nino.webp" alt="Camisa Guallavera Artesanal chiapaneca Para Niño">
+    </div>
+    <div class="product-content">
+        <h3 class="product-title">Camisa Guallavera Artesanal chiapaneca Para Niño</h3>
+        <p class="product-price">$800</p>
+        
+        <div class="size-options-container">
+            <div class="size-option" data-size="4" data-stock="18">
+                <span class="size-label">
+                    <span class="size-tag">4</span>
+                    <span class="stock-status in-stock">(Disponible)</span>
+                    <span class="remaining-stock">(18 disponibles)</span>
+                </span>
+                <div class="quantity-controls">
+                    <button class="quantity-btn minus-btn" data-size="4">-</button>
+                    <input type="number" class="quantity-input" data-size="4" value="0" min="0" max="18">
+                    <button class="quantity-btn plus-btn" data-size="4">+</button>
+                </div>
+            </div>
+            
+            <div class="size-option" data-size="6" data-stock="18">
+                <span class="size-label">
+                    <span class="size-tag">6</span>
+                    <span class="stock-status in-stock">(Disponible)</span>
+                    <span class="remaining-stock">(18 disponibles)</span>
+                </span>
+                <div class="quantity-controls">
+                    <button class="quantity-btn minus-btn" data-size="6">-</button>
+                    <input type="number" class="quantity-input" data-size="6" value="0" min="0" max="18">
+                    <button class="quantity-btn plus-btn" data-size="6">+</button>
+                </div>
+            </div>
+            
+            <div class="size-option" data-size="8" data-stock="18">
+                <span class="size-label">
+                    <span class="size-tag">8</span>
+                    <span class="stock-status in-stock">(Disponible)</span>
+                    <span class="remaining-stock">(18 disponibles)</span>
+                </span>
+                <div class="quantity-controls">
+                    <button class="quantity-btn minus-btn" data-size="8">-</button>
+                    <input type="number" class="quantity-input" data-size="8" value="0" min="0" max="18">
+                    <button class="quantity-btn plus-btn" data-size="8">+</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="stock-info">
+            <strong>Cantidad total disponible:</strong> <span class="total-stock">54</span>
+        </div>
+        
+        <div class="size-stock">
+            <strong>Stock por talla</strong>
+            4: <span class="size-4-stock">18</span>, 6: <span class="size-6-stock">18</span>, 
+            8: <span class="size-8-stock">18</span>
+        </div>
+        
+        <button class="add-to-cart">Añadir al carrito</button>
+    </div>
+</div>
+
+<!-- Producto 3 -->
+<div class="product-card" data-id="3" data-name="Guayabera Bordado Floral para Niño" data-price="1200">
+    <div class="product-image">
+        <img src="https://i.etsystatic.com/17150723/r/il/352a57/4061454310/il_1588xN.4061454310_9xov.jpg" alt="Guayabera Bordado Floral para Niño">
+    </div>
+    <div class="product-content">
+        <h3 class="product-title">Guayabera Bordado Floral para Niño</h3>
+        <p class="product-price">$1,200</p>
+        
+        <div class="size-options-container">
+            <div class="size-option" data-size="XS" data-stock="22">
+                <span class="size-label">
+                    <span class="size-tag">XS</span>
+                    <span class="stock-status in-stock">(Disponible)</span>
+                    <span class="remaining-stock">(22 disponibles)</span>
+                </span>
+                <div class="quantity-controls">
+                    <button class="quantity-btn minus-btn" data-size="XS">-</button>
+                    <input type="number" class="quantity-input" data-size="XS" value="0" min="0" max="22">
+                    <button class="quantity-btn plus-btn" data-size="XS">+</button>
+                </div>
+            </div>
+            
+            <div class="size-option" data-size="S" data-stock="22">
+                <span class="size-label">
+                    <span class="size-tag">S</span>
+                    <span class="stock-status in-stock">(Disponible)</span>
+                    <span class="remaining-stock">(22 disponibles)</span>
+                </span>
+                <div class="quantity-controls">
+                    <button class="quantity-btn minus-btn" data-size="S">-</button>
+                    <input type="number" class="quantity-input" data-size="S" value="0" min="0" max="22">
+                    <button class="quantity-btn plus-btn" data-size="S">+</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="stock-info">
+            <strong>Cantidad total disponible:</strong> <span class="total-stock">44</span>
+        </div>
+        
+        <div class="size-stock">
+            <strong>Stock por talla</strong>
+            XS: <span class="size-xs-stock">22</span>, S: <span class="size-s-stock">22</span>
+        </div>
+        
+        <button class="add-to-cart">Añadir al carrito</button>
+    </div>
+</div>
+
+<!-- Producto 4 -->
+<div class="product-card" data-id="4" data-name="Guayabera de Lino bordada para Niño modelo Coba Crema" data-price="600">
+    <div class="product-image">
+        <img src="https://iqshopmx.com/cdn/shop/products/guayaberadelinocobacrema_600x.jpg?v=1609896342" alt="Guayabera de Lino bordada para Niño modelo Coba Crema">
+    </div>
+    <div class="product-content">
+        <h3 class="product-title">Guayabera de Lino bordada para Niño modelo Coba Crema</h3>
+        <p class="product-price">$600</p>
+        
+        <div class="size-options-container">
+            <div class="size-option" data-size="3-5" data-stock="15">
+                <span class="size-label">
+                    <span class="size-tag">3-5</span>
+                    <span class="stock-status in-stock">(Disponible)</span>
+                    <span class="remaining-stock">(15 disponibles)</span>
+                </span>
+                <div class="quantity-controls">
+                    <button class="quantity-btn minus-btn" data-size="3-5">-</button>
+                    <input type="number" class="quantity-input" data-size="3-5" value="0" min="0" max="15">
+                    <button class="quantity-btn plus-btn" data-size="3-5">+</button>
+                </div>
+            </div>
+            
+            <div class="size-option" data-size="6-8" data-stock="15">
+                <span class="size-label">
+                    <span class="size-tag">6-8</span>
+                    <span class="stock-status in-stock">(Disponible)</span>
+                    <span class="remaining-stock">(15 disponibles)</span>
+                </span>
+                <div class="quantity-controls">
+                    <button class="quantity-btn minus-btn" data-size="6-8">-</button>
+                    <input type="number" class="quantity-input" data-size="6-8" value="0" min="0" max="15">
+                    <button class="quantity-btn plus-btn" data-size="6-8">+</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="stock-info">
+            <strong>Cantidad total disponible:</strong> <span class="total-stock">30</span>
+        </div>
+        
+        <div class="size-stock">
+            <strong>Stock por talla</strong>
+            3-5: <span class="size-3-5-stock">15</span>, 6-8: <span class="size-6-8-stock">15</span>
+        </div>
+        
+        <button class="add-to-cart">Añadir al carrito</button>
+    </div>
+</div>
+
+<!-- Producto 5 -->
+<div class="product-card" data-id="5" data-name="Camisa Guayabera Con Bordado Mexicano Para Niño Mod. Fer" data-price="1000">
+    <div class="product-image">
+        <img src="https://http2.mlstatic.com/D_NQ_NP_2X_785741-MLM53590373646_022023-F-camisa-guayabera-con-bordado-mexicano-para-nino-mod-fer.webp" alt="Camisa Guayabera Con Bordado Mexicano Para Niño Mod. Fer">
+    </div>
+    <div class="product-content">
+        <h3 class="product-title">Camisa Guayabera Con Bordado Mexicano Para Niño Mod. Fer</h3>
+        <p class="product-price">$1,000</p>
+        
+        <div class="size-options-container">
+            <div class="size-option" data-size="4" data-stock="12">
+                <span class="size-label">
+                    <span class="size-tag">4</span>
+                    <span class="stock-status in-stock">(Disponible)</span>
+                    <span class="remaining-stock">(12 disponibles)</span>
+                </span>
+                <div class="quantity-controls">
+                    <button class="quantity-btn minus-btn" data-size="4">-</button>
+                    <input type="number" class="quantity-input" data-size="4" value="0" min="0" max="12">
+                    <button class="quantity-btn plus-btn" data-size="4">+</button>
+                </div>
+            </div>
+            
+            <div class="size-option" data-size="6" data-stock="12">
+                <span class="size-label">
+                    <span class="size-tag">6</span>
+                    <span class="stock-status in-stock">(Disponible)</span>
+                    <span class="remaining-stock">(12 disponibles)</span>
+                </span>
+                <div class="quantity-controls">
+                    <button class="quantity-btn minus-btn" data-size="6">-</button>
+                    <input type="number" class="quantity-input" data-size="6" value="0" min="0" max="12">
+                    <button class="quantity-btn plus-btn" data-size="6">+</button>
+                </div>
+            </div>
+            
+            <div class="size-option" data-size="8" data-stock="12">
+                <span class="size-label">
+                    <span class="size-tag">8</span>
+                    <span class="stock-status in-stock">(Disponible)</span>
+                    <span class="remaining-stock">(12 disponibles)</span>
+                </span>
+                <div class="quantity-controls">
+                    <button class="quantity-btn minus-btn" data-size="8">-</button>
+                    <input type="number" class="quantity-input" data-size="8" value="0" min="0" max="12">
+                    <button class="quantity-btn plus-btn" data-size="8">+</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="stock-info">
+            <strong>Cantidad total disponible:</strong> <span class="total-stock">36</span>
+        </div>
+        
+        <div class="size-stock">
+            <strong>Stock por talla</strong>
+            4: <span class="size-4-stock">12</span>, 6: <span class="size-6-stock">12</span>, 
+            8: <span class="size-8-stock">12</span>
+        </div>
+        
+        <button class="add-to-cart">Añadir al carrito</button>
+    </div>
+</div>
+
+<!-- Producto 6 -->
+<div class="product-card" data-id="6" data-name="Camisas/guayaberas Artesanales Bordadas Para Niños- Chiapas" data-price="850">
+    <div class="product-image">
+        <img src="https://http2.mlstatic.com/D_NQ_NP_2X_893623-MLM76583603135_052024-F-camisasguayaberas-artesanales-bordadas-para-ninos-chiapas.webp" alt="Camisas/guayaberas Artesanales Bordadas Para Niños- Chiapas">
+    </div>
+    <div class="product-content">
+        <h3 class="product-title">Camisas/guayaberas Artesanales Bordadas Para Niños- Chiapas</h3>
+        <p class="product-price">$850</p>
+
+        <div class="size-options-container">
+            <div class="size-option" data-size="5" data-stock="20">
+                <span class="size-label">
+                    <span class="size-tag">5</span>
+                    <span class="stock-status in-stock">(Disponible)</span>
+                    <span class="remaining-stock">(20 disponibles)</span>
+                </span>
+                <div class="quantity-controls">
+                    <button class="quantity-btn minus-btn" data-size="5">-</button>
+                    <input type="number" class="quantity-input" data-size="5" value="0" min="0" max="20">
+                    <button class="quantity-btn plus-btn" data-size="5">+</button>
+                </div>
+            </div>
+            
+            <div class="size-option" data-size="7" data-stock="20">
+                <span class="size-label">
+                    <span class="size-tag">7</span>
+                    <span class="stock-status in-stock">(Disponible)</span>
+                    <span class="remaining-stock">(20 disponibles)</span>
+                </span>
+                <div class="quantity-controls">
+                    <button class="quantity-btn minus-btn" data-size="7">-</button>
+                    <input type="number" class="quantity-input" data-size="7" value="0" min="0" max="20">
+                    <button class="quantity-btn plus-btn" data-size="7">+</button>
+                </div>
+            </div>
+            
+            <div class="size-option" data-size="9" data-stock="20">
+                <span class="size-label">
+                    <span class="size-tag">9</span>
+                    <span class="stock-status in-stock">(Disponible)</span>
+                    <span class="remaining-stock">(20 disponibles)</span>
+                </span>
+                <div class="quantity-controls">
+                    <button class="quantity-btn minus-btn" data-size="9">-</button>
+                    <input type="number" class="quantity-input" data-size="9" value="0" min="0" max="20">
+                    <button class="quantity-btn plus-btn" data-size="9">+</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="stock-info">
+            <strong>Cantidad total disponible:</strong> <span class="total-stock">60</span>
+        </div>
+        
+        <div class="size-stock">
+            <strong>Stock por talla</strong>
+            5: <span class="size-5-stock">20</span>, 7: <span class="size-7-stock">20</span>, 
+            9: <span class="size-9-stock">20</span>
+        </div>
+        
+        <button class="add-to-cart">Añadir al carrito</button>
+    </div>
+</div>
+
+<!-- Producto 7 -->
+<div class="product-card" data-id="7" data-name="Guayabera De Niño Bordada En Punto De Cruz Modelo Conkal" data-price="800">
+    <div class="product-image">
+        <img src="https://http2.mlstatic.com/D_NQ_NP_2X_695419-MLM43192849102_082020-F-guayabera-de-nino-bordada-en-punto-de-cruz-modelo-conkal.webp" alt="Guayabera De Niño Bordada En Punto De Cruz Modelo Conkal">
+    </div>
+    <div class="product-content">
+        <h3 class="product-title">Guayabera De Niño Bordada En Punto De Cruz Modelo Conkal</h3>
+        <p class="product-price">$800</p>
+        
+        <div class="size-options-container">
+            <div class="size-option" data-size="3-4" data-stock="10">
+                <span class="size-label">
+                    <span class="size-tag">3-4</span>
+                    <span class="stock-status in-stock">(Disponible)</span>
+                    <span class="remaining-stock">(10 disponibles)</span>
+                </span>
+                <div class="quantity-controls">
+                    <button class="quantity-btn minus-btn" data-size="3-4">-</button>
+                    <input type="number" class="quantity-input" data-size="3-4" value="0" min="0" max="10">
+                    <button class="quantity-btn plus-btn" data-size="3-4">+</button>
+                </div>
+            </div>
+            
+            <div class="size-option" data-size="5-6" data-stock="10">
+                <span class="size-label">
+                    <span class="size-tag">5-6</span>
+                    <span class="stock-status in-stock">(Disponible)</span>
+                    <span class="remaining-stock">(10 disponibles)</span>
+                </span>
+                <div class="quantity-controls">
+                    <button class="quantity-btn minus-btn" data-size="5-6">-</button>
+                    <input type="number" class="quantity-input" data-size="5-6" value="0" min="0" max="10">
+                    <button class="quantity-btn plus-btn" data-size="5-6">+</button>
+                </div>
+            </div>
+            
+            <div class="size-option" data-size="7-8" data-stock="10">
+                <span class="size-label">
+                    <span class="size-tag">7-8</span>
+                    <span class="stock-status in-stock">(Disponible)</span>
+                    <span class="remaining-stock">(10 disponibles)</span>
+                </span>
+                <div class="quantity-controls">
+                    <button class="quantity-btn minus-btn" data-size="7-8">-</button>
+                    <input type="number" class="quantity-input" data-size="7-8" value="0" min="0" max="10">
+                    <button class="quantity-btn plus-btn" data-size="7-8">+</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="stock-info">
+            <strong>Cantidad total disponible:</strong> <span class="total-stock">30</span>
+        </div>
+        
+        <div class="size-stock">
+            <strong>Stock por talla</strong>
+            3-4: <span class="size-3-4-stock">10</span>, 5-6: <span class="size-5-6-stock">10</span>, 
+            7-8: <span class="size-7-8-stock">10</span>
+        </div>
+        
+        <button class="add-to-cart">Añadir al carrito</button>
+    </div>
+</div>
+
+<!-- Producto 8 -->
+<div class="product-card" data-id="8" data-name="Camisas mexicanas para niños, camisas de guayabera, tradicionales, bordadas, para fiestas y niños pequeños" data-price="1100">
+    <div class="product-image">
+        <img src="https://m.media-amazon.com/images/I/71wDdaif8dL._AC_SY879_.jpg" alt="Camisas mexicanas para niños, camisas de guayabera, tradicionales, bordadas, para fiestas y niños pequeños">
+    </div>
+    <div class="product-content">
+        <h3 class="product-title">Camisas mexicanas para niños, camisas de guayabera, tradicionales, bordadas, para fiestas y niños pequeños</h3>
+        <p class="product-price">$1,100</p>
+        
+        <div class="size-options-container">
+            <div class="size-option" data-size="2-3" data-stock="15">
+                <span class="size-label">
+                    <span class="size-tag">2-3</span>
+                    <span class="stock-status in-stock">(Disponible)</span>
+                    <span class="remaining-stock">(15 disponibles)</span>
+                </span>
+                <div class="quantity-controls">
+                    <button class="quantity-btn minus-btn" data-size="2-3">-</button>
+                    <input type="number" class="quantity-input" data-size="2-3" value="0" min="0" max="15">
+                    <button class="quantity-btn plus-btn" data-size="2-3">+</button>
+                </div>
+            </div>
+            
+            <div class="size-option" data-size="4-5" data-stock="15">
+                <span class="size-label">
+                    <span class="size-tag">4-5</span>
+                    <span class="stock-status in-stock">(Disponible)</span>
+                    <span class="remaining-stock">(15 disponibles)</span>
+                </span>
+                <div class="quantity-controls">
+                    <button class="quantity-btn minus-btn" data-size="4-5">-</button>
+                    <input type="number" class="quantity-input" data-size="4-5" value="0" min="0" max="15">
+                    <button class="quantity-btn plus-btn" data-size="4-5">+</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="stock-info">
+            <strong>Cantidad total disponible:</strong> <span class="total-stock">30</span>
+        </div>
+        
+        <div class="size-stock">
+            <strong>Stock por talla</strong>
+            2-3: <span class="size-2-3-stock">15</span>, 4-5: <span class="size-4-5-stock">15</span>
+        </div>
+        
+        <button class="add-to-cart">Añadir al carrito</button>
+    </div>
+</div>
+
+<!-- Producto 9 -->
+<div class="product-card" data-id="9" data-name="Conjunto mexicano de manga corta bordado y pantalones cortos para niños, ropa tradicional" data-price="1500">
+    <div class="product-image">
+        <img src="https://m.media-amazon.com/images/I/61KkfZ2Q9fL._AC_SX679_.jpg" alt="Conjunto mexicano de manga corta bordado y pantalones cortos para niños, ropa tradicional">
+    </div>
+    <div class="product-content">
+        <h3 class="product-title"Conjunto mexicano de manga corta bordado y pantalones cortos para niños, ropa tradicional</h3>
+        <p class="product-price">$1,500</p>
+        
+        
+        <div class="size-options-container">
+            <div class="size-option" data-size="4" data-stock="12">
+                <span class="size-label">
+                    <span class="size-tag">4</span>
+                    <span class="stock-status in-stock">(Disponible)</span>
+                    <span class="remaining-stock">(12 disponibles)</span>
+                </span>
+                <div class="quantity-controls">
+                    <button class="quantity-btn minus-btn" data-size="4">-</button>
+                    <input type="number" class="quantity-input" data-size="4" value="0" min="0" max="12">
+                    <button class="quantity-btn plus-btn" data-size="4">+</button>
+                </div>
+            </div>
+            
+            <div class="size-option" data-size="6" data-stock="12">
+                <span class="size-label">
+                    <span class="size-tag">6</span>
+                    <span class="stock-status in-stock">(Disponible)</span>
+                    <span class="remaining-stock">(12 disponibles)</span>
+                </span>
+                <div class="quantity-controls">
+                    <button class="quantity-btn minus-btn" data-size="6">-</button>
+                    <input type="number" class="quantity-input" data-size="6" value="0" min="0" max="12">
+                    <button class="quantity-btn plus-btn" data-size="6">+</button>
+                </div>
+            </div>
+            
+            <div class="size-option" data-size="8" data-stock="12">
+                <span class="size-label">
+                    <span class="size-tag">8</span>
+                    <span class="stock-status in-stock">(Disponible)</span>
+                    <span class="remaining-stock">(12 disponibles)</span>
+                </span>
+                <div class="quantity-controls">
+                    <button class="quantity-btn minus-btn" data-size="8">-</button>
+                    <input type="number" class="quantity-input" data-size="8" value="0" min="0" max="12">
+                    <button class="quantity-btn plus-btn" data-size="8">+</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="stock-info">
+            <strong>Cantidad total disponible:</strong> <span class="total-stock">36</span>
+        </div>
+        
+        <div class="size-stock">
+            <strong>Stock por talla</strong>
+            4: <span class="size-4-stock">12</span>, 6: <span class="size-6-stock">12</span>, 
+            8: <span class="size-8-stock">12</span>
+        </div>
+        
+        <button class="add-to-cart">Añadir al carrito</button>
+    </div>
+</div>
+
+<!-- Producto 10 -->
+<div class="product-card" data-id="10" data-name="Camisas mexicanas para niños, camisas de guayabera, tradicionales, bordadas, para fiestas y niños pequeños" data-price="1200">
+    <div class="product-image">
+        <img src="https://m.media-amazon.com/images/I/71wDdaif8dL._AC_SY879_.jpg" alt="Camisas mexicanas para niños, camisas de guayabera, tradicionales, bordadas, para fiestas y niños pequeños">
+    </div>
+    <div class="product-content">
+        <h3 class="product-title">Camisas mexicanas para niños, camisas de guayabera, tradicionales, bordadas, para fiestas y niños pequeños</h3>
+        <p class="product-price">$1,200</p>
+        
+        <div class="size-options-container">
+            <div class="size-option" data-size="3-4" data-stock="8">
+                <span class="size-label">
+                    <span class="size-tag">3-4</span>
+                    <span class="stock-status in-stock">(Disponible)</span>
+                    <span class="remaining-stock">(8 disponibles)</span>
+                </span>
+                <div class="quantity-controls">
+                    <button class="quantity-btn minus-btn" data-size="3-4">-</button>
+                    <input type="number" class="quantity-input" data-size="3-4" value="0" min="0" max="8">
+                    <button class="quantity-btn plus-btn" data-size="3-4">+</button>
+                </div>
+            </div>
+            
+            <div class="size-option" data-size="5-6" data-stock="8">
+                <span class="size-label">
+                    <span class="size-tag">5-6</span>
+                    <span class="stock-status in-stock">(Disponible)</span>
+                    <span class="remaining-stock">(8 disponibles)</span>
+                </span>
+                <div class="quantity-controls">
+                    <button class="quantity-btn minus-btn" data-size="5-6">-</button>
+                    <input type="number" class="quantity-input" data-size="5-6" value="0" min="0" max="8">
+                    <button class="quantity-btn plus-btn" data-size="5-6">+</button>
+                </div>
+            </div>
+            
+            <div class="size-option" data-size="7-8" data-stock="8">
+                <span class="size-label">
+                    <span class="size-tag">7-8</span>
+                    <span class="stock-status in-stock">(Disponible)</span>
+                    <span class="remaining-stock">(8 disponibles)</span>
+                </span>
+                <div class="quantity-controls">
+                    <button class="quantity-btn minus-btn" data-size="7-8">-</button>
+                    <input type="number" class="quantity-input" data-size="7-8" value="1" min="1" max="8">
+                    <button class="quantity-btn plus-btn" data-size="7-8">+</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="stock-info">
+            <strong>Cantidad total disponible:</strong> <span class="total-stock">24</span>
+        </div>
+        
+        <div class="size-stock">
+            <strong>Stock por talla</strong>
+            3-4: <span class="size-3-4-stock">8</span>, 5-6: <span class="size-5-6-stock">8</span>, 
+            7-8: <span class="size-7-8-stock">8</span>
+        </div>
+        
+        <button class="add-to-cart">Añadir al carrito</button>
+    </div>
+</div> 
+           
+            </div>
+
+           
+        </div>
+        
+        <div class="back-btn-container">
+            <a href="success.html" class="back-btn">Volver a la página principal</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Chiapa de Corzo, Chiapas</p>
+            <p>© 2023 Armario de Chiapas. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Botón "Volver arriba" -->
+    <button id="btnSubir" title="Volver arriba">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Carrito de compras
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const cartCount = document.getElementById('cart-count');
+        
+        // Actualizar contador del carrito
+        function updateCartCount() {
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+        
+        // Funcionalidad para los botones de cantidad
+        document.querySelectorAll('.quantity-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const size = this.dataset.size;
+                const isPlusBtn = this.classList.contains('plus-btn');
+                const input = this.parentElement.querySelector('.quantity-input');
+                const sizeOption = this.closest('.size-option');
+                let currentStock = parseInt(sizeOption.dataset.stock);
+                let value = parseInt(input.value);
+                const max = parseInt(input.max);
+                
+                if (isPlusBtn && value < max && value < currentStock) {
+                    value++;
+                } else if (!isPlusBtn && value > parseInt(input.min)) {
+                    value--;
+                }
+                
+                input.value = value;
+            });
+        });
+        
+        // Validar inputs de cantidad
+        document.querySelectorAll('.quantity-input').forEach(input => {
+            input.addEventListener('change', function() {
+                const sizeOption = this.closest('.size-option');
+                const currentStock = parseInt(sizeOption.dataset.stock);
+                const min = parseInt(this.min);
+                let value = parseInt(this.value);
+                
+                if (isNaN(value) || value < min) {
+                    this.value = min;
+                } else if (value > currentStock) {
+                    this.value = currentStock;
+                }
+            });
+        });
+        
+        // Añadir al carrito - VERSIÓN MODIFICADA PARA INCLUIR IMÁGENES
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                const productCard = this.closest('.product-card');
+                const productId = productCard.dataset.id;
+                const productName = productCard.dataset.name;
+                const productPrice = parseFloat(productCard.dataset.price);
+                const productImage = productCard.querySelector('.product-image img').src; // Obtener la imagen
+                
+                // Obtener todas las cantidades seleccionadas por talla
+                const sizeQuantities = {};
+                let totalQuantity = 0;
+                
+                productCard.querySelectorAll('.quantity-input').forEach(input => {
+                    const size = input.dataset.size;
+                    const quantity = parseInt(input.value);
+                    
+                    if (quantity > 0) {
+                        sizeQuantities[size] = quantity;
+                        totalQuantity += quantity;
+                    }
+                });
+                
+                if (totalQuantity === 0) {
+                    alert('Por favor selecciona al menos una talla y cantidad.');
+                    return;
+                }
+                
+                // Actualizar stock (código permanece igual)
+                
+                // Buscar si el producto ya está en el carrito
+                const existingItemIndex = cart.findIndex(item => item.id === productId);
+                
+                if (existingItemIndex !== -1) {
+                    // Actualizar el item existente
+                    cart[existingItemIndex].quantity += totalQuantity;
+                    cart[existingItemIndex].sizes = {...cart[existingItemIndex].sizes, ...sizeQuantities};
+                } else {
+                    // Añadir nuevo item al carrito (CON IMAGEN)
+                    cart.push({
+                        id: productId,
+                        name: productName,
+                        price: productPrice,
+                        quantity: totalQuantity,
+                        sizes: sizeQuantities,
+                        image: productImage // Incluimos la URL de la imagen
+                    });
+                }
+                
+                updateCartCount();
+                
+                // Animación del contador del carrito
+                cartCount.style.transform = 'scale(1.5)';
+                setTimeout(() => {
+                    cartCount.style.transform = 'scale(1)';
+                }, 300);
+                
+                // Feedback visual
+                this.textContent = '✓ Añadido';
+                this.style.backgroundColor = '#28a745';
+                setTimeout(() => {
+                    this.textContent = 'Añadir al carrito';
+                    this.style.backgroundColor = '';
+                }, 2000);
+            });
+        });
+        
+        // Inicializar contador
+        updateCartCount();
+
+        // Botón "Volver arriba"
+        document.addEventListener('DOMContentLoaded', function() {
+            const backToTopBtn = document.getElementById('btnSubir');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.classList.add('show');
+                } else {
+                    backToTopBtn.classList.remove('show');
+                }
+            });
+            
+            backToTopBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+    <title>Login - Ropa Típica Chiapa de Corzo</title>
+    <style>
+        /* Estilos para el fondo y el cuerpo */
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #f9f3f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: "";
+            background-image: url('https://goo.su/iyf1GR');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.9;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+        }
+
+        /* Estilos para el formulario */
+        .form-body {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin: 0 auto;
+            display: block;
+        }
+        
+        .text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: #8B0000;
+            margin: 15px 0 0;
+            line-height: 1.3;
+            text-align: center;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .login-form input:focus {
+            border-color: #8B0000;
+            outline: none;
+        }
+
+        .boton {
+            background-color: #8B0000;
+            color: white;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .boton:hover {
+            background-color: #6d0000;
+        }
+
+        .login-footer {
+            margin-top: 25px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .login-footer a {
+            color: #8B0000;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .login-footer p {
+            margin-top: 15px;
+        }
+
+        /* Estilos para el mensaje de éxito */
+        .success-message {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            animation: slideIn 0.5s, fadeOut 0.5s 3.5s forwards;
+        }
+
+        @keyframes slideIn {
+            from { top: -100px; opacity: 0; }
+            to { top: 20px; opacity: 1; }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+
+        .success-message span {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-body">
+        <div class="header-content">
+            <img src="https://i.postimg.cc/7L25NYPW/Chat-GPT-Image-27-abr-2025-21-57-39.png" alt="Logo Armario de Chiapas" class="logo">
+            <p class="text">Bienvenido a<br>Armario de Chiapas</p>
+        </div>
+    
+        <form class="login-form" id="loginForm">
+            <input type="text" id="username" placeholder="Email o usuario" required>
+            <input type="password" id="password" placeholder="Contraseña" required>
+            <button type="button" class="boton" onclick="login()">Iniciar Sesión</button>
+        </form>
+    
+        <div class="login-footer">
+            
+            <p>¿No tienes cuenta? <a href="registros.html">Regístrate</a></p>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+    <script>
+        // Verificar si viene de un registro exitoso
+        document.addEventListener('DOMContentLoaded', function() {
+            if (localStorage.getItem('registroExitoso')) {
+                // Mostrar mensaje de éxito
+                const successMessage = document.createElement('div');
+                successMessage.className = 'success-message';
+                successMessage.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                    <span>¡Registrado con éxito! Ahora puedes iniciar sesión.</span>
+                `;
+                document.body.appendChild(successMessage);
+                
+                // Eliminar el indicador después de mostrarlo
+                localStorage.removeItem('registroExitoso');
+                
+                // Eliminar el mensaje después de la animación
+                setTimeout(() => {
+                    successMessage.remove();
+                }, 4000);
+            }
+        });
+    </script>
+</body>
+</html>

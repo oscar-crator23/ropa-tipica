@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crear Cuenta - Armario de Chiapas</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<style>
+    body {
+        margin: 0;
+        font-family: 'Quicksand', sans-serif;
+        background-color: #f8f8f8;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .registro-container {
+        background-color: white;
+        padding: 2.5rem 3rem;
+        border-radius: 1.5rem;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        max-width: 420px;
+        width: 100%;
+    }
+
+    .registro-container h2 {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 1.8rem;
+        color: #333;
+    }
+
+    .registro-container input, .registro-container select {
+        width: 100%;
+        padding: 0.75rem;
+        margin: 0.5rem 0;
+        border: 1px solid #ccc;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+    }
+
+    .registro-container button {
+        width: 100%;
+        padding: 0.8rem;
+        background-color: #E91E63;
+        border: none;
+        border-radius: 0.5rem;
+        color: white;
+        font-weight: bold;
+        font-size: 1rem;
+        margin-top: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .registro-container button:hover {
+        background-color: #C2185B;
+    }
+
+    .registro-container p {
+        text-align: center;
+        margin-top: 1rem;
+        font-size: 0.95rem;
+    }
+
+    .registro-container a {
+        color: #E91E63;
+        text-decoration: none;
+    }
+
+    .registro-container a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<body>
+  <div class="registro-container">
+    <h2>Crear cuenta</h2>
+    <form id="registroForm">
+      <input type="text" name="nombre" placeholder="Nombre completo" required>
+      <input type="email" name="email" placeholder="Correo electrónico" required>
+      <input type="text" name="usuario" placeholder="Nombre de usuario" required>
+      <input type="password" name="contraseña" placeholder="Contraseña" required>
+      <input type="password" name="confirmar" placeholder="Confirmar contraseña" required>
+
+ 
+
+      
+      <label style="font-size: 0.9rem; margin-top: 10px;">
+        <input type="checkbox" name="terminos" required>
+        Acepto los <a href="#">términos y condiciones</a>
+      </label>
+
+      <button type="submit">Registrarse</button>
+    </form>
+    <p>¿Ya tienes cuenta? <a href="index.html">Inicia sesión</a></p>
+  </div>
+
+  <script>
+    document.getElementById('registroForm').addEventListener('submit', function(e) {
+      e.preventDefault(); // Evita el envío normal del formulario
+      
+      // Aquí podrías agregar validaciones adicionales si lo deseas
+      
+      // Guardar en localStorage que el registro fue exitoso
+      localStorage.setItem('registroExitoso', 'true');
+      
+      // Redirigir a index.html
+      window.location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>

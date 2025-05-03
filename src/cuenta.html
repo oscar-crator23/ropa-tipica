@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Cuenta - Armario de Chiapas</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #FFFFFF;
+      color: #555555;
+    }
+
+    /* Nuevo encabezado */
+    header {
+      text-align: center;
+      padding: 20px;
+      background-color: #cf1818;
+    }
+
+    header a {
+      text-decoration: none;
+      color: white;
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    .account-container {
+      max-width: 1200px;
+      margin: 50px auto;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 30px;
+    }
+    .account-sidebar, .account-content {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+    .user-info {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .user-info img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 15px;
+      border: 3px solid #E57373;
+    }
+    .account-menu {
+      list-style: none;
+      padding: 0;
+    }
+    .account-menu li {
+      margin-bottom: 15px;
+    }
+    .account-menu a {
+      display: block;
+      padding: 10px 15px;
+      color: #555555;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+    .account-menu a:hover, .account-menu a.active {
+      background: #E57373;
+      color: white;
+    }
+    .account-menu i {
+      margin-right: 10px;
+      width: 20px;
+      text-align: center;
+    }
+    .section-title {
+      color: #A1887F;
+      border-bottom: 2px solid #E57373;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      color: #777;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    .save-btn {
+      background-color: #E57373;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .save-btn:hover {
+      background-color: #d65656;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nuevo encabezado -->
+  <header>
+    <a href="success.html">El Armario de Chiapas</a>
+  </header>
+
+  <div class="account-container">
+    <div class="account-sidebar">
+      <div class="user-info">
+        
+        <h3 id="userName">Nombre del Usuario</h3>
+        <p id="userEmail">usuario@example.com</p>
+      </div>
+      
+      <ul class="account-menu">
+        <li><a href="#" class="active"><i class="fas fa-user"></i> Mi perfil</a></li>
+        <li><a href="#" id="cerrarSesion"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a></li>
+      </ul>
+    </div>
+
+    <div class="account-content">
+      <h2 class="section-title">Mi perfil</h2>
+
+      <form id="perfilForm">
+        <div class="form-group">
+          <label>Nombre completo</label>
+          <input type="text" id="nombre" required>
+        </div>
+
+        <div class="form-group">
+          <label>Correo electrónico</label>
+          <input type="email" id="correo" required>
+        </div>
+
+        <div class="form-group">
+          <label>Teléfono</label>
+          <input type="tel" id="telefono" required>
+        </div>
+
+        <div class="form-group">
+          <label>Fecha de nacimiento</label>
+          <input type="date" id="fecha" required>
+        </div>
+
+        <button type="submit" class="save-btn">Guardar cambios</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Cerrar sesión
+    document.getElementById('cerrarSesion').addEventListener('click', function(e) {
+      e.preventDefault();
+      alert('Se cerró sesión exitosamente');
+      window.location.href = 'index.html';
+    });
+
+    // Guardar cambios en localStorage
+    document.getElementById('perfilForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const nombre = document.getElementById('nombre').value;
+      const correo = document.getElementById('correo').value;
+      const telefono = document.getElementById('telefono').value;
+      const fecha = document.getElementById('fecha').value;
+
+      localStorage.setItem('nombre', nombre);
+      localStorage.setItem('correo', correo);
+      localStorage.setItem('telefono', telefono);
+      localStorage.setItem('fecha', fecha);
+
+      document.getElementById('userName').innerText = nombre;
+      document.getElementById('userEmail').innerText = correo;
+
+      alert('¡Cambios guardados exitosamente!');
+    });
+
+    // Cargar datos guardados al abrir la página
+    window.addEventListener('load', function() {
+      if (localStorage.getItem('nombre')) {
+        document.getElementById('nombre').value = localStorage.getItem('nombre');
+        document.getElementById('userName').innerText = localStorage.getItem('nombre');
+      }
+      if (localStorage.getItem('correo')) {
+        document.getElementById('correo').value = localStorage.getItem('correo');
+        document.getElementById('userEmail').innerText = localStorage.getItem('correo');
+      }
+      if (localStorage.getItem('telefono')) {
+        document.getElementById('telefono').value = localStorage.getItem('telefono');
+      }
+      if (localStorage.getItem('fecha')) {
+        document.getElementById('fecha').value = localStorage.getItem('fecha');
+      }
+    });
+  </script>
+
+</body>
+</html>

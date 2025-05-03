@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ropa para Mujer - Armario de Chiapas</title>
+    <style>
+        :root {
+            --primary-color: #8B0000;
+            --secondary-color: #2c3e50;
+            --background-color: #f9f3f0;
+            --text-color: #333;
+            --white: #fff;
+            --gold-accent: #FFD700;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .top-nav {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 12px;
+        }
+        
+        .top-nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.95em;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .top-nav a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .top-nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .top-nav a:hover::before {
+            left: 100%;
+        }
+        
+        .top-nav a i {
+            margin-right: 6px;
+            font-size: 1em;
+        }
+        
+        .cart-count {
+            background-color: var(--gold-accent);
+            color: #333;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 0.8em;
+            margin-left: 6px;
+            font-weight: bold;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .top-nav a:hover .cart-count {
+            transform: scale(1.1) rotate(10deg);
+        }
+        
+        h1, h2 {
+            color: var(--primary-color);
+            text-align: center;
+        }
+        
+        h1 {
+            margin-top: 30px;
+            font-size: 2.2rem;
+        }
+        
+        .store-title {
+            color: #FFFFFF;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+            margin: 0;
+            font-size: 2.8em;
+        }
+        
+        .store-title a {
+            color: inherit;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .store-title a:hover {
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+            align-items: start;
+        }
+        
+        .product-card {
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            padding: 20px;
+            max-width: 350px;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .product-content {
+            padding: 20px;
+        }
+        
+        .product-title {
+            font-size: 1.3rem;
+            margin: 0 0 10px 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .product-price {
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin: 15px 0;
+        }
+        
+        .size-options-container {
+            margin: 15px 0;
+        }
+        
+        .size-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .size-label {
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .size-tag {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+        }
+        
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+        
+        .quantity-btn:hover {
+            background-color: #eee;
+        }
+        
+        .quantity-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .quantity-input {
+            width: 40px;
+            height: 30px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        
+        .stock-info {
+            font-size: 0.9rem;
+            color: #555;
+            margin: 15px 0;
+        }
+        
+        .size-stock {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 10px;
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        
+        .size-stock strong {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--primary-color);
+        }
+        
+        .in-stock {
+            color: #28a745;
+            font-weight: bold;
+        }
+        
+        .out-of-stock {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        
+        .remaining-stock {
+            font-size: 0.8em;
+            color: #666;
+            margin-left: 5px;
+        }
+        
+        .add-to-cart {
+            display: block;
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+            font-size: 1rem;
+        }
+        
+        .add-to-cart:hover {
+            background-color: #6d0000;
+        }
+        
+        .back-btn-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        .back-btn:hover {
+            background-color: #6d0000;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        footer {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            padding: 25px 0;
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        #btnSubir {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            border: none;
+        }
+        
+        #btnSubir:hover {
+            background-color: #6d0000;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        #btnSubir.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        
+            h1 {
+                font-size: 1.8rem;
+            }
+        
+            .top-nav {
+                position: static;
+                justify-content: center;
+                margin-top: 15px;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+        
+            .top-nav a {
+                padding: 6px 12px;
+                font-size: 0.85em;
+            }
+        }
+    </style>
+    
+    
+    <!-- Font Awesome para los iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="top-nav">
+            <a href="cuenta.html"><i class="fas fa-user-circle"></i> Mi cuenta</a>
+            <a href="pedidos.html"><i class="fas fa-clipboard-list"></i> Pedidos</a>
+            <a href="carrito.html"><i class="fas fa-shopping-cart"></i> Carrito <span id="cart-count" class="cart-count">0</span></a>
+        </div>
+        <div class="container">
+            <h1 class="store-title"><a href="success.html">ARMARIO DE CHIAPAS</a></h1>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1>Ropa de Mujer</h1>
+        <h2>Vestidos</h2>
+        <div class="product-grid">
+
+             <!-- Producto 1 -->
+             <div class="product-card" data-id="1" data-name="Blusa Bordada Artesanal Mexicana Modelo Florecitas, Cuello V, Hecho de Manta" data-price="600">
+                <div class="product-image">
+                    <img src="https://m.media-amazon.com/images/I/41NHyudzvBL._QL70_ML2_.jpg" alt="Vestido tradicional bordado a mano">
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">Blusa Bordada Artesanal Mexicana Modelo Florecitas, Cuello V, Hecho de Manta</h3>
+                    <p class="product-price">$600</p>
+                
+                <div class="size-options-container">
+                    <div class="size-option" data-size="S" data-stock="10">
+                        <span class="size-label">
+                            <span class="size-tag">S</span>
+                            <span class="stock-status in-stock">(Disponible)</span>
+                            <span class="remaining-stock">(10 disponibles)</span>
+                        </span>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn minus-btn" data-size="S">-</button>
+                            <input type="number" class="quantity-input" data-size="S" value="0" min="0" max="100">
+                            <button class="quantity-btn plus-btn" data-size="S">+</button>
+                        </div>
+                    </div>
+                    
+                    <div class="size-option" data-size="M" data-stock="10">
+                        <span class="size-label">
+                            <span class="size-tag">M</span>
+                            <span class="stock-status in-stock">(Disponible)</span>
+                            <span class="remaining-stock">(10 disponibles)</span>
+                        </span>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn minus-btn" data-size="M">-</button>
+                            <input type="number" class="quantity-input" data-size="M" value="0" min="0" max="10">
+                            <button class="quantity-btn plus-btn" data-size="M">+</button>
+                        </div>
+                    </div>
+                    
+                    <div class="size-option" data-size="L" data-stock="10">
+                        <span class="size-label">
+                            <span class="size-tag">L</span>
+                            <span class="stock-status in-stock">(Disponible)</span>
+                            <span class="remaining-stock">(10 disponibles)</span>
+                        </span>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn minus-btn" data-size="L">-</button>
+                            <input type="number" class="quantity-input" data-size="L" value="0" min="0" max="10">
+                            <button class="quantity-btn plus-btn" data-size="L">+</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stock-info">
+                    <strong>Cantidad total disponible:</strong> <span class="total-stock">30</span>
+                </div>
+                
+                <div class="size-stock">
+                    <strong>Stock por talla</strong>
+                    S: <span class="size-s-stock">10</span>, M: <span class="size-m-stock">10</span>, 
+                    L: <span class="size-l-stock">10</span>
+                </div>
+                
+                <button class="add-to-cart">Añadir al carrito</button>
+            </div>
+        </div>
+
+           <!-- Producto 2 -->
+           <div class="product-card" data-id="2" data-name="Blusa Bordada Floral Artesanal Mexicana Modelo Margaritas, Hecho de Manta, Chiapaneca" data-price="450">
+            <div class="product-image">
+                <img src="https://m.media-amazon.com/images/I/81E21DBylrL._SY800_.jpg" alt="Vestido tradicional bordado a mano">
+            </div>
+            <div class="product-content">
+                <h3 class="product-title">Blusa Bordada Floral Artesanal Mexicana Modelo Margaritas, Hecho de Manta</h3>
+                <p class="product-price">$450</p>
+                
+                <div class="size-options-container">
+                    <div class="size-option" data-size="S" data-stock="10">
+                        <span class="size-label">
+                            <span class="size-tag">S</span>
+                            <span class="stock-status in-stock">(Disponible)</span>
+                            <span class="remaining-stock">(10 disponibles)</span>
+                        </span>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn minus-btn" data-size="S">-</button>
+                            <input type="number" class="quantity-input" data-size="S" value="0" min="0" max="100">
+                            <button class="quantity-btn plus-btn" data-size="S">+</button>
+                        </div>
+                    </div>
+                    
+                    <div class="size-option" data-size="M" data-stock="10">
+                        <span class="size-label">
+                            <span class="size-tag">M</span>
+                            <span class="stock-status in-stock">(Disponible)</span>
+                            <span class="remaining-stock">(10 disponibles)</span>
+                        </span>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn minus-btn" data-size="M">-</button>
+                            <input type="number" class="quantity-input" data-size="M" value="0" min="0" max="10">
+                            <button class="quantity-btn plus-btn" data-size="M">+</button>
+                        </div>
+                    </div>
+                    
+                    <div class="size-option" data-size="L" data-stock="10">
+                        <span class="size-label">
+                            <span class="size-tag">L</span>
+                            <span class="stock-status in-stock">(Disponible)</span>
+                            <span class="remaining-stock">(10 disponibles)</span>
+                        </span>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn minus-btn" data-size="L">-</button>
+                            <input type="number" class="quantity-input" data-size="L" value="0" min="0" max="10">
+                            <button class="quantity-btn plus-btn" data-size="L">+</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stock-info">
+                    <strong>Cantidad total disponible:</strong> <span class="total-stock">30</span>
+                </div>
+                
+                <div class="size-stock">
+                    <strong>Stock por talla</strong>
+                    S: <span class="size-s-stock">10</span>, M: <span class="size-m-stock">10</span>, 
+                    L: <span class="size-l-stock">10</span>
+                </div>
+                
+                <button class="add-to-cart">Añadir al carrito</button>
+            </div>
+        </div>
+
+           <!-- Producto 3 -->
+           <div class="product-card" data-id="3" data-name="Blusa Bordada Artesanal Mexicana - Diseño Girasol y Lirios - Manta 100% Algodón - Cuello V" data-price="550">
+            <div class="product-image">
+                <img src="https://m.media-amazon.com/images/I/41vTZX33ZGL._QL70_ML2_.jpg" alt="Vestido tradicional bordado a mano">
+            </div>
+            <div class="product-content">
+                <h3 class="product-title">Blusa Bordada Artesanal Mexicana - Diseño Girasol y Lirios - Manta 100% Algodón - Cuello V</h3>
+                <p class="product-price">$550</p>
+                
+                <div class="size-options-container">
+                    <div class="size-option" data-size="S" data-stock="10">
+                        <span class="size-label">
+                            <span class="size-tag">S</span>
+                            <span class="stock-status in-stock">(Disponible)</span>
+                            <span class="remaining-stock">(10 disponibles)</span>
+                        </span>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn minus-btn" data-size="S">-</button>
+                            <input type="number" class="quantity-input" data-size="S" value="0" min="0" max="100">
+                            <button class="quantity-btn plus-btn" data-size="S">+</button>
+                        </div>
+                    </div>
+                    
+                    <div class="size-option" data-size="M" data-stock="10">
+                        <span class="size-label">
+                            <span class="size-tag">M</span>
+                            <span class="stock-status in-stock">(Disponible)</span>
+                            <span class="remaining-stock">(10 disponibles)</span>
+                        </span>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn minus-btn" data-size="M">-</button>
+                            <input type="number" class="quantity-input" data-size="M" value="0" min="0" max="10">
+                            <button class="quantity-btn plus-btn" data-size="M">+</button>
+                        </div>
+                    </div>
+                    
+                    <div class="size-option" data-size="L" data-stock="10">
+                        <span class="size-label">
+                            <span class="size-tag">L</span>
+                            <span class="stock-status in-stock">(Disponible)</span>
+                            <span class="remaining-stock">(10 disponibles)</span>
+                        </span>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn minus-btn" data-size="L">-</button>
+                            <input type="number" class="quantity-input" data-size="L" value="0" min="0" max="10">
+                            <button class="quantity-btn plus-btn" data-size="L">+</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stock-info">
+                    <strong>Cantidad total disponible:</strong> <span class="total-stock">30</span>
+                </div>
+                
+                <div class="size-stock">
+                    <strong>Stock por talla</strong>
+                    S: <span class="size-s-stock">10</span>, M: <span class="size-m-stock">10</span>, 
+                    L: <span class="size-l-stock">10</span>
+                </div>
+                
+                <button class="add-to-cart">Añadir al carrito</button>
+            </div>
+        </div>
+
+           <!-- Producto 4 -->
+           <div class="product-card" data-id="4" data-name="Blusa Bordada Artesanal Mexicana - Tricolor Fiestas Pátrias - Manta 100% Algodóna" data-price="700">
+            <div class="product-image">
+                <img src="https://m.media-amazon.com/images/I/71e6tApG6rL._SY500_.jpg" alt=Blusa Bordada Artesanal Mexicana - Tricolor Fiestas Pátrias - Manta 100% Algodón">
+            </div>
+            <div class="product-content">
+                <h3 class="product-title">Blusa Bordada Artesanal Mexicana - Tricolor Fiestas Pátrias - Manta 100% Algodón</h3>
+                <p class="product-price">$700</p>
+                
+                <div class="size-options-container">
+                    <div class="size-option" data-size="S" data-stock="10">
+                        <span class="size-label">
+                            <span class="size-tag">S</span>
+                            <span class="stock-status in-stock">(Disponible)</span>
+                            <span class="remaining-stock">(10 disponibles)</span>
+                        </span>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn minus-btn" data-size="S">-</button>
+                            <input type="number" class="quantity-input" data-size="S" value="0" min="0" max="100">
+                            <button class="quantity-btn plus-btn" data-size="S">+</button>
+                        </div>
+                    </div>
+                    
+                    <div class="size-option" data-size="M" data-stock="10">
+                        <span class="size-label">
+                            <span class="size-tag">M</span>
+                            <span class="stock-status in-stock">(Disponible)</span>
+                            <span class="remaining-stock">(10 disponibles)</span>
+                        </span>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn minus-btn" data-size="M">-</button>
+                            <input type="number" class="quantity-input" data-size="M" value="0" min="0" max="10">
+                            <button class="quantity-btn plus-btn" data-size="M">+</button>
+                        </div>
+                    </div>
+                    
+                    <div class="size-option" data-size="L" data-stock="10">
+                        <span class="size-label">
+                            <span class="size-tag">L</span>
+                            <span class="stock-status in-stock">(Disponible)</span>
+                            <span class="remaining-stock">(10 disponibles)</span>
+                        </span>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn minus-btn" data-size="L">-</button>
+                            <input type="number" class="quantity-input" data-size="L" value="0" min="0" max="10">
+                            <button class="quantity-btn plus-btn" data-size="L">+</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stock-info">
+                    <strong>Cantidad total disponible:</strong> <span class="total-stock">30</span>
+                </div>
+                
+                <div class="size-stock">
+                    <strong>Stock por talla</strong>
+                    S: <span class="size-s-stock">10</span>, M: <span class="size-m-stock">10</span>, 
+                    L: <span class="size-l-stock">10</span>
+                </div>
+                
+                <button class="add-to-cart">Añadir al carrito</button>
+            </div>
+        </div>
+
+           <!-- Producto 5 - Vestido tradicional bordado -->
+    <div class="product-card" data-id="5" data-name="Blusa Tradicional Mexicana Bordado con Flores" data-price="300">
+    <div class="product-image">
+        <img src="https://m.media-amazon.com/images/I/61iZjsAMc5L._AC_SX679_.jpg" alt="Vestido tradicional bordado a mano">
+    </div>
+    <div class="product-content">
+        <h3 class="product-title">Blusa Tradicional Mexicana Bordado con Flores</h3>
+        <p class="product-price">$300</p>
+                    
+                    <div class="size-options-container">
+                        <div class="size-option" data-size="S" data-stock="15">
+                            <span class="size-label">
+                                <span class="size-tag">S</span>
+                                <span class="stock-status in-stock">(Disponible)</span>
+                                <span class="remaining-stock">(15 disponibles)</span>
+                            </span>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn minus-btn" data-size="S">-</button>
+                                <input type="number" class="quantity-input" data-size="S" value="0" min="0" max="15">
+                                <button class="quantity-btn plus-btn" data-size="S">+</button>
+                            </div>
+                        </div>
+                        
+                        <div class="size-option" data-size="M" data-stock="20">
+                            <span class="size-label">
+                                <span class="size-tag">M</span>
+                                <span class="stock-status in-stock">(Disponible)</span>
+                                <span class="remaining-stock">(20 disponibles)</span>
+                            </span>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn minus-btn" data-size="M">-</button>
+                                <input type="number" class="quantity-input" data-size="M" value="0" min="0" max="20">
+                                <button class="quantity-btn plus-btn" data-size="M">+</button>
+                            </div>
+                        </div>
+                        
+                        <div class="size-option" data-size="L" data-stock="10">
+                            <span class="size-label">
+                                <span class="size-tag">L</span>
+                                <span class="stock-status in-stock">(Disponible)</span>
+                                <span class="remaining-stock">(10 disponibles)</span>
+                            </span>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn minus-btn" data-size="L">-</button>
+                                <input type="number" class="quantity-input" data-size="L" value="0" min="0" max="10">
+                                <button class="quantity-btn plus-btn" data-size="L">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stock-info">
+                        <strong>Cantidad total disponible:</strong> <span class="total-stock">45</span>
+                    </div>
+                    
+                    <div class="size-stock">
+                        <strong>Stock por talla</strong>
+                        S: <span class="size-s-stock">15</span>, M: <span class="size-m-stock">20</span>, 
+                        L: <span class="size-l-stock">10</span>
+                    </div>
+                    
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+
+            <!-- Producto 6 -->
+            <div class="product-card" data-id="6" data-name="Blusa Arcoíris Bordado Artesanal, Manta 100% Algodón" data-price="450">
+                <div class="product-image">
+                    <img src="https://m.media-amazon.com/images/I/61tbS6pPtvL._SY500_.jpg" alt="Blusa Arcoíris Bordado Artesanal, Manta 100% Algodón">
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">Blusa Arcoíris Bordado Artesanal, Manta 100% Algodón</h3>
+                    <p class="product-price">$450</p>
+                    
+                    <div class="size-options-container">
+                        <div class="size-option" data-size="M" data-stock="15">
+                            <span class="size-label">
+                                <span class="size-tag">M</span>
+                                <span class="stock-status in-stock">(Disponible)</span>
+                                <span class="remaining-stock">(15 disponibles)</span>
+                            </span>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn minus-btn" data-size="M">-</button>
+                                <input type="number" class="quantity-input" data-size="M" value="0" min="0" max="15">
+                                <button class="quantity-btn plus-btn" data-size="M">+</button>
+                            </div>
+                        </div>
+                        
+                        <div class="size-option" data-size="L" data-stock="15">
+                            <span class="size-label">
+                                <span class="size-tag">L</span>
+                                <span class="stock-status in-stock">(Disponible)</span>
+                                <span class="remaining-stock">(15 disponibles)</span>
+                            </span>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn minus-btn" data-size="L">-</button>
+                                <input type="number" class="quantity-input" data-size="L" value="0" min="0" max="15">
+                                <button class="quantity-btn plus-btn" data-size="L">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stock-info">
+                        <strong>Cantidad total disponible:</strong> <span class="total-stock">30</span>
+                    </div>
+                    
+                    <div class="size-stock">
+                        <strong>Stock por talla</strong>
+                        M: <span class="size-m-stock">15</span>, L: <span class="size-l-stock">15</span>
+                    </div>
+                    
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+
+           <!-- Producto 7 -->
+<div class="product-card" data-id="7" data-name="Blusa Tradicional Artesanal Yucateca Bordada a Mano Modelo Estrella para Mujer" data-price="1200">
+    <div class="product-image">
+        <img src="https://m.media-amazon.com/images/I/61mT1bMFJ4L._AC_SX679_.jpg" alt="Blusa Tradicional Artesanal Yucateca Bordada a Mano Modelo Estrella para Mujer">
+    </div>
+    <div class="product-content">
+        <h3 class="product-title">Blusa Tradicional Artesanal Yucateca Bordada a Mano Modelo Estrella para Mujer</h3>
+        <p class="product-price">$1,200</p>
+
+                    
+                    <div class="size-options-container">
+                        <div class="size-option" data-size="XS" data-stock="15">
+                            <span class="size-label">
+                                <span class="size-tag">XS</span>
+                                <span class="stock-status in-stock">(Disponible)</span>
+                                <span class="remaining-stock">(15 disponibles)</span>
+                            </span>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn minus-btn" data-size="XS">-</button>
+                                <input type="number" class="quantity-input" data-size="XS" value="0" min="0" max="15">
+                                <button class="quantity-btn plus-btn" data-size="XS">+</button>
+                            </div>
+                        </div>
+                        
+                        <div class="size-option" data-size="S" data-stock="15">
+                            <span class="size-label">
+                                <span class="size-tag">S</span>
+                                <span class="stock-status in-stock">(Disponible)</span>
+                                <span class="remaining-stock">(15 disponibles)</span>
+                            </span>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn minus-btn" data-size="S">-</button>
+                                <input type="number" class="quantity-input" data-size="S" value="0" min="0" max="15">
+                                <button class="quantity-btn plus-btn" data-size="S">+</button>
+                            </div>
+                        </div>
+                        
+                        <div class="size-option" data-size="M" data-stock="10">
+                            <span class="size-label">
+                                <span class="size-tag">M</span>
+                                <span class="stock-status in-stock">(Disponible)</span>
+                                <span class="remaining-stock">(10 disponibles)</span>
+                            </span>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn minus-btn" data-size="M">-</button>
+                                <input type="number" class="quantity-input" data-size="M" value="0" min="0" max="10">
+                                <button class="quantity-btn plus-btn" data-size="M">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stock-info">
+                        <strong>Cantidad total disponible:</strong> <span class="total-stock">40</span>
+                    </div>
+                    
+                    <div class="size-stock">
+                        <strong>Stock por talla</strong>
+                        XS: <span class="size-xs-stock">15</span>, S: <span class="size-s-stock">15</span>, 
+                        M: <span class="size-m-stock">10</span>
+                    </div>
+                    
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+
+            <!-- Producto 8 -->
+            <div class="product-card" data-id="8" data-name="Genérico Blusa Artesanal Mexicana, Bordado Floral Rosa, Manga Corta, Algodón Blanco" data-price="1200">
+                <div class="product-image">
+                    <img src="https://m.media-amazon.com/images/I/61w+j-MwLbL._AC_SX679_.jpg" alt="Genérico Blusa Artesanal Mexicana, Bordado Floral Rosa, Manga Corta, Algodón Blanco">
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">Genérico Blusa Artesanal Mexicana, Bordado Floral Rosa, Manga Corta, Algodón Blanco</h3>
+                    <p class="product-price">$1,200</p>
+                    
+                    <div class="size-options-container">
+                        <div class="size-option" data-size="S" data-stock="10">
+                            <span class="size-label">
+                                <span class="size-tag">S</span>
+                                <span class="stock-status in-stock">(Disponible)</span>
+                                <span class="remaining-stock">(10 disponibles)</span>
+                            </span>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn minus-btn" data-size="S">-</button>
+                                <input type="number" class="quantity-input" data-size="S" value="0" min="0" max="100">
+                                <button class="quantity-btn plus-btn" data-size="S">+</button>
+                            </div>
+                        </div>
+                        
+                        <div class="size-option" data-size="M" data-stock="10">
+                            <span class="size-label">
+                                <span class="size-tag">M</span>
+                                <span class="stock-status in-stock">(Disponible)</span>
+                                <span class="remaining-stock">(10 disponibles)</span>
+                            </span>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn minus-btn" data-size="M">-</button>
+                                <input type="number" class="quantity-input" data-size="M" value="0" min="0" max="10">
+                                <button class="quantity-btn plus-btn" data-size="M">+</button>
+                            </div>
+                        </div>
+                        
+                        <div class="size-option" data-size="L" data-stock="10">
+                            <span class="size-label">
+                                <span class="size-tag">L</span>
+                                <span class="stock-status in-stock">(Disponible)</span>
+                                <span class="remaining-stock">(10 disponibles)</span>
+                            </span>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn minus-btn" data-size="L">-</button>
+                                <input type="number" class="quantity-input" data-size="L" value="0" min="0" max="10">
+                                <button class="quantity-btn plus-btn" data-size="L">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stock-info">
+                        <strong>Cantidad total disponible:</strong> <span class="total-stock">40</span>
+                    </div>
+                    
+                    <div class="size-stock">
+                        <strong>Stock por talla</strong>
+                        S: <span class="size-s-stock">10</span>, M: <span class="size-m-stock">10</span>, 
+                        L: <span class="size-l-stock">10</span>
+
+                    </div>
+                    
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+
+            <!-- Producto 9 -->
+            <div class="product-card" data-id="9" data-name="Blusa Artesanal Bordada Muñequita Maria Altos De Chiapas" data-price="1200">
+                <div class="product-image">
+                    <img src="https://http2.mlstatic.com/D_NQ_NP_2X_946325-MLM44030942023_112020-F-blusa-artesanal-bordada-munequita-maria-altos-de-chiapas.webp" alt="Blusa Artesanal Bordada Muñequita Maria Altos De Chiapas">
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">Blusa Artesanal Bordada Muñequita Maria Altos De Chiapas</h3>
+                    <p class="product-price">$1,200</p>
+                    
+                    <div class="size-options-container">
+                        <div class="size-option" data-size="S" data-stock="10">
+                            <span class="size-label">
+                                <span class="size-tag">S</span>
+                                <span class="stock-status in-stock">(Disponible)</span>
+                                <span class="remaining-stock">(10 disponibles)</span>
+                            </span>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn minus-btn" data-size="S">-</button>
+                                <input type="number" class="quantity-input" data-size="S" value="0" min="0" max="100">
+                                <button class="quantity-btn plus-btn" data-size="S">+</button>
+                            </div>
+                        </div>
+                        
+                        <div class="size-option" data-size="M" data-stock="10">
+                            <span class="size-label">
+                                <span class="size-tag">M</span>
+                                <span class="stock-status in-stock">(Disponible)</span>
+                                <span class="remaining-stock">(10 disponibles)</span>
+                            </span>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn minus-btn" data-size="M">-</button>
+                                <input type="number" class="quantity-input" data-size="M" value="0" min="0" max="10">
+                                <button class="quantity-btn plus-btn" data-size="M">+</button>
+                            </div>
+                        </div>
+                        
+                        <div class="size-option" data-size="L" data-stock="10">
+                            <span class="size-label">
+                                <span class="size-tag">L</span>
+                                <span class="stock-status in-stock">(Disponible)</span>
+                                <span class="remaining-stock">(10 disponibles)</span>
+                            </span>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn minus-btn" data-size="L">-</button>
+                                <input type="number" class="quantity-input" data-size="L" value="0" min="0" max="10">
+                                <button class="quantity-btn plus-btn" data-size="L">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stock-info">
+                        <strong>Cantidad total disponible:</strong> <span class="total-stock">30</span>
+                    </div>
+                    
+                    <div class="size-stock">
+                        <strong>Stock por talla</strong>
+                        S: <span class="size-s-stock">10</span>, M: <span class="size-m-stock">10</span>, 
+                        L: <span class="size-l-stock">10</span>
+                    </div>
+                    
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+            </div>
+        </div>
+     </div>
+
+            <!-- Producto 10 -->
+            <div class="product-card" data-id="10" data-name="Blusa Corzo Campesina Bordada A Mano Típica De Chiapas" data-price="1200">
+                <div class="product-image">
+                    <img src="https://http2.mlstatic.com/D_NQ_NP_2X_839897-MLM71471921759_092023-F-blusa-corzo-campesina-bordada-a-mano-tipica-de-chiapas-uni.webp" alt="Blusa Corzo Campesina Bordada A Mano Típica De Chiapas">
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">Blusa Corzo Campesina Bordada A Mano Típica De Chiapas</h3>
+                    <p class="product-price">$1,200</p>
+                    
+                    <div class="size-options-container">
+                        <div class="size-option" data-size="M" data-stock="15">
+                            <span class="size-label">
+                                <span class="size-tag">M</span>
+                                <span class="stock-status in-stock">(Disponible)</span>
+                                <span class="remaining-stock">(15 disponibles)</span>
+                            </span>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn minus-btn" data-size="M">-</button>
+                                <input type="number" class="quantity-input" data-size="M" value="0" min="0" max="15">
+                                <button class="quantity-btn plus-btn" data-size="M">+</button>
+                            </div>
+                        </div>
+                        
+                        <div class="size-option" data-size="L" data-stock="15">
+                            <span class="size-label">
+                                <span class="size-tag">L</span>
+                                <span class="stock-status in-stock">(Disponible)</span>
+                                <span class="remaining-stock">(15 disponibles)</span>
+                            </span>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn minus-btn" data-size="L">-</button>
+                                <input type="number" class="quantity-input" data-size="L" value="0" min="0" max="15">
+                                <button class="quantity-btn plus-btn" data-size="L">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stock-info">
+                        <strong>Cantidad total disponible:</strong> <span class="total-stock">30</span>
+                    </div>
+                    
+                    <div class="size-stock">
+                        <strong>Stock por talla</strong>
+                        M: <span class="size-m-stock">15</span>, L: <span class="size-l-stock">15</span>
+                    </div>
+                    
+                    <button class="add-to-cart">Añadir al carrito</button>
+                
+                </div>
+            </div>
+
+            
+        </div>
+    </div>
+
+          
+        
+        
+        <div class="back-btn-container">
+            <a href="success.html" class="back-btn">Volver a la página principal</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Chiapa de Corzo, Chiapas</p>
+            <p>© 2023 Armario de Chiapas. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+   <!-- Botón "Volver arriba" -->
+<button id="btnSubir" title="Volver arriba">
+    <i class="fas fa-arrow-up"></i>
+</button>
+
+    <script>
+        
+
+        // Carrito de compras
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const cartCount = document.getElementById('cart-count');
+        
+        // Actualizar contador del carrito
+        function updateCartCount() {
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+        
+        // Funcionalidad para los botones de cantidad
+        document.querySelectorAll('.quantity-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const size = this.dataset.size;
+                const isPlusBtn = this.classList.contains('plus-btn');
+                const input = this.parentElement.querySelector('.quantity-input');
+                const sizeOption = this.closest('.size-option');
+                let currentStock = parseInt(sizeOption.dataset.stock);
+                let value = parseInt(input.value);
+                const max = parseInt(input.max);
+                
+                if (isPlusBtn && value < max && value < currentStock) {
+                    value++;
+                } else if (!isPlusBtn && value > parseInt(input.min)) {
+                    value--;
+                }
+                
+                input.value = value;
+            });
+        });
+        
+        // Validar inputs de cantidad
+        document.querySelectorAll('.quantity-input').forEach(input => {
+            input.addEventListener('change', function() {
+                const sizeOption = this.closest('.size-option');
+                const currentStock = parseInt(sizeOption.dataset.stock);
+                const min = parseInt(this.min);
+                let value = parseInt(this.value);
+                
+                if (isNaN(value) || value < min) {
+                    this.value = min;
+                } else if (value > currentStock) {
+                    this.value = currentStock;
+                }
+            });
+        });
+        
+        // Añadir al carrito y actualizar stock
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                const productCard = this.closest('.product-card');
+                const productId = productCard.dataset.id;
+                const productName = productCard.dataset.name;
+                const productPrice = parseFloat(productCard.dataset.price);
+                // Obtener la URL de la imagen
+                const productImage = productCard.querySelector('.product-image img').src;
+                
+                // Obtener todas las cantidades seleccionadas por talla
+                const sizeQuantities = {};
+                let totalQuantity = 0;
+                
+                productCard.querySelectorAll('.quantity-input').forEach(input => {
+                    const size = input.dataset.size;
+                    const quantity = parseInt(input.value);
+                    
+                    if (quantity > 0) {
+                        sizeQuantities[size] = quantity;
+                        totalQuantity += quantity;
+                    }
+                });
+                
+                // Verificar que se haya seleccionado al menos una talla
+                if (totalQuantity === 0) {
+                    alert('Por favor selecciona al menos una talla y cantidad.');
+                    return;
+                }
+                
+                // Actualizar el stock disponible
+                let stockUpdated = false;
+                
+                for (const [size, quantity] of Object.entries(sizeQuantities)) {
+                    const sizeOption = productCard.querySelector(`.size-option[data-size="${size}"]`);
+                    let currentStock = parseInt(sizeOption.dataset.stock);
+                    
+                    if (quantity > currentStock) {
+                        alert(`No hay suficientes unidades disponibles en talla ${size}. Solo quedan ${currentStock}.`);
+                        return;
+                    }
+                    
+                    // Actualizar stock
+                    const newStock = currentStock - quantity;
+                    sizeOption.dataset.stock = newStock;
+                    
+                    // Actualizar el input max
+                    const input = sizeOption.querySelector('.quantity-input');
+                    input.max = newStock;
+                    
+                    // Actualizar la visualización del stock
+                    const remainingStockElement = sizeOption.querySelector('.remaining-stock');
+                    remainingStockElement.textContent = `(${newStock} disponibles)`;
+                    
+                    // Actualizar el stock específico por talla en el resumen
+                    const sizeStockElement = productCard.querySelector(`.size-${size.toLowerCase()}-stock`);
+                    if (sizeStockElement) {
+                        sizeStockElement.textContent = newStock;
+                    }
+                    
+                    // Actualizar estado si se agota
+                    if (newStock <= 0) {
+                        sizeOption.querySelector('.stock-status').textContent = '(Agotado)';
+                        sizeOption.querySelector('.stock-status').className = 'stock-status out-of-stock';
+                        input.disabled = true;
+                        sizeOption.querySelectorAll('.quantity-btn').forEach(btn => btn.disabled = true);
+                    }
+                    
+                    stockUpdated = true;
+                }
+                
+                // Actualizar el stock total
+                if (stockUpdated) {
+                    const totalStockElement = productCard.querySelector('.total-stock');
+                    if (totalStockElement) {
+                        let newTotalStock = 0;
+                        productCard.querySelectorAll('.size-option').forEach(option => {
+                            newTotalStock += parseInt(option.dataset.stock);
+                        });
+                        totalStockElement.textContent = newTotalStock;
+                    }
+                }
+                
+                // Buscar si el producto ya está en el carrito
+                const existingItemIndex = cart.findIndex(item => item.id === productId);
+                
+                if (existingItemIndex !== -1) {
+                    // Actualizar el item existente
+                    cart[existingItemIndex].quantity += totalQuantity;
+                    cart[existingItemIndex].sizes = {...cart[existingItemIndex].sizes, ...sizeQuantities};
+                    cart[existingItemIndex].image = productImage;
+                } else {
+                 // Añadir nuevo item al carrito
+                    cart.push({
+                    id: productId,
+                    name: productName,
+                    price: productPrice,
+                    quantity: totalQuantity,
+                    sizes: sizeQuantities,
+                    image: productImage
+                });
+                }
+                
+                updateCartCount();
+                
+                // Animación del contador del carrito
+                cartCount.style.transform = 'scale(1.5)';
+                setTimeout(() => {
+                    cartCount.style.transform = 'scale(1)';
+                }, 300);
+                
+                // Feedback visual
+                this.textContent = '✓ Añadido';
+                this.style.backgroundColor = '#28a745';
+                setTimeout(() => {
+                    this.textContent = 'Añadir al carrito';
+                    this.style.backgroundColor = '';
+                }, 2000);
+            });
+        });
+        
+        // Inicializar contador 
+        updateCartCount();
+
+// Funcionalidad para el botón "Volver arriba"
+const backToTopButton = document.getElementById('btnSubir');  // Cambiado a getElementById
+
+window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 300) {
+        backToTopButton.classList.add('show');
+    } else {
+        backToTopButton.classList.remove('show');
+    }
+});
+
+backToTopButton.addEventListener('click', () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});
+
+
+    </script>
+</body>
+
+</html>

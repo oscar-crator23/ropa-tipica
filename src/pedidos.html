@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mis Pedidos - Armario de Chiapas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #8B0000;
+      --primary-dark: #6d0000;
+      --secondary-color: #f8f1e7;
+      --text-color: #333;
+      --light-text: #666;
+      --border-color: #e0e0e0;
+      --success-color: #065f46;
+      --success-bg: #d1fae5;
+      --warning-color: #92400e;
+      --warning-bg: #fef3c7;
+      --info-color: #1e40af;
+      --info-bg: #dbeafe;
+      --white: #ffffff;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      --radius: 12px;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+    
+    header {
+      background-color: var(--white);
+      box-shadow: var(--shadow);
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+    
+    h1 {
+      text-align: center;
+      margin: 2rem 0;
+      color: var(--primary-color);
+      font-size: 2rem;
+      position: relative;
+    }
+    
+    h1::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: var(--primary-color);
+      margin: 0.5rem auto;
+      border-radius: 2px;
+    }
+    
+    .orders-container {
+      display: grid;
+      gap: 1.5rem;
+    }
+    
+    .order-card {
+      background-color: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .order-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    }
+    
+    .order-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem;
+      background-color: var(--primary-color);
+      color: var(--white);
+    }
+    
+    .order-id {
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+    
+    .order-date {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+    
+    .order-status {
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .status-pending {
+      background-color: var(--warning-bg);
+      color: var(--warning-color);
+    }
+    
+    .status-shipped {
+      background-color: var(--info-bg);
+      color: var(--info-color);
+    }
+    
+    .status-completed {
+      background-color: var(--success-bg);
+      color: var(--success-color);
+    }
+    
+    .order-body {
+      padding: 1.5rem;
+    }
+    
+    .order-items {
+      margin-bottom: 1.5rem;
+    }
+    
+    .order-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border-color);
+      align-items: center;
+    }
+    
+    .order-item:last-child {
+      border-bottom: none;
+    }
+    
+    .item-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .item-image {
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      object-fit: cover;
+      border: 1px solid var(--border-color);
+    }
+    
+    .item-name {
+      font-weight: 500;
+    }
+    
+    .item-quantity {
+      color: var(--light-text);
+      font-size: 0.9rem;
+    }
+    
+    .item-price {
+      font-weight: 600;
+    }
+    
+    .order-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem;
+      background-color: rgba(139, 0, 0, 0.05);
+      border-top: 1px solid var(--border-color);
+    }
+    
+    .order-total {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--primary-color);
+    }
+    
+    .order-actions {
+      display: flex;
+      gap: 0.75rem;
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius);
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      font-family: inherit;
+      gap: 0.5rem;
+    }
+    
+    .btn-primary {
+      background-color: var(--primary-color);
+      color: var(--white);
+    }
+    
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+    
+    .btn-outline {
+      background-color: transparent;
+      color: var(--primary-color);
+      border: 2px solid var(--primary-color);
+    }
+    
+    .btn-outline:hover {
+      background-color: rgba(139, 0, 0, 0.1);
+    }
+    
+    .btn-details {
+      background-color: var(--white);
+      color: var(--primary-color);
+      border: 2px solid var(--primary-color);
+      padding: 0.5rem 1rem;
+    }
+    
+    .btn-details:hover {
+      background-color: rgba(139, 0, 0, 0.1);
+    }
+    
+    .btn-tracking {
+      background-color: var(--primary-color);
+      color: var(--white);
+      padding: 0.5rem 1rem;
+    }
+    
+    .btn-tracking:hover {
+      background-color: var(--primary-dark);
+    }
+    
+    .empty-orders {
+      text-align: center;
+      padding: 4rem 2rem;
+      background-color: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    
+    .empty-icon {
+      font-size: 3rem;
+      color: var(--light-text);
+      margin-bottom: 1.5rem;
+    }
+    
+    .empty-title {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-color);
+    }
+    
+    .empty-text {
+      color: var(--light-text);
+      margin-bottom: 1.5rem;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .footer {
+      text-align: center;
+      padding: 2rem 0;
+      margin-top: 3rem;
+      color: var(--light-text);
+      font-size: 0.9rem;
+      border-top: 1px solid var(--border-color);
+    }
+    
+    /* Modal de detalles del pedido */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .modal-content {
+      background-color: var(--white);
+      border-radius: var(--radius);
+      width: 90%;
+      max-width: 800px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: var(--shadow);
+      animation: fadeIn 0.3s ease;
+    }
+    
+    .modal-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .modal-title {
+      font-size: 1.25rem;
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .close-modal {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--light-text);
+    }
+    
+    .modal-body {
+      padding: 1.5rem;
+    }
+    
+    .order-details-section {
+      margin-bottom: 1.5rem;
+    }
+    
+    .order-details-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .order-details-info {
+      background-color: rgba(139, 0, 0, 0.05);
+      padding: 1rem;
+      border-radius: 8px;
+    }
+    
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+    
+    .detail-label {
+      font-weight: 500;
+      color: var(--light-text);
+    }
+    
+    .detail-value {
+      font-weight: 600;
+    }
+    
+    /* Timeline de seguimiento */
+    .timeline {
+      position: relative;
+      margin: 2rem 0;
+      padding-left: 1.5rem;
+    }
+    
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--border-color);
+    }
+    
+    .timeline-step {
+      position: relative;
+      margin-bottom: 1.5rem;
+      padding-left: 1.5rem;
+    }
+    
+    .timeline-step:last-child {
+      margin-bottom: 0;
+    }
+    
+    .timeline-dot {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--border-color);
+      z-index: 1;
+    }
+    
+    .timeline-step.active .timeline-dot {
+      background: var(--primary-color);
+      box-shadow: 0 0 0 4px rgba(139, 0, 0, 0.1);
+    }
+    
+    .timeline-step.completed .timeline-dot {
+      background: var(--success-color);
+      box-shadow: 0 0 0 4px rgba(5, 95, 70, 0.1);
+    }
+    
+    .timeline-content {
+      padding: 0.5rem 0;
+    }
+    
+    .timeline-title {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    
+    .timeline-date {
+      font-size: 0.85rem;
+      color: var(--light-text);
+    }
+    
+    .timeline-description {
+      font-size: 0.9rem;
+      margin-bottom: 0.25rem;
+    }
+    
+    .tracking-info {
+      background: rgba(139, 0, 0, 0.05);
+      padding: 1rem;
+      border-radius: 8px;
+      margin-top: 1rem;
+    }
+    
+    .tracking-number {
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+    
+    .carrier-info {
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @media (max-width: 768px) {
+      .order-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+      
+      .order-footer {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+      
+      .order-actions {
+        width: 100%;
+        flex-direction: column;
+      }
+      
+      .btn {
+        width: 100%;
+      }
+      
+      .modal-content {
+        width: 95%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <a href="success.html" class="logo">Armario de Chiapas</a>
+      <nav>
+        <a href="success.html" class="btn btn-outline">
+          <i class="fas fa-arrow-left"></i> Volver
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <h1>Mis Pedidos</h1>
+    
+    <div class="orders-container" id="orders-container">
+      <!-- Los pedidos se cargarán aquí dinámicamente -->
+    </div>
+  </div>
+
+  <!-- Modal de detalles del pedido -->
+  <div class="modal" id="order-details-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title"><i class="fas fa-receipt"></i> Detalles del Pedido</h3>
+        <button class="close-modal" data-modal="order-details-modal">&times;</button>
+      </div>
+      <div class="modal-body" id="order-details-content">
+        <!-- El contenido se cargará dinámicamente -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de seguimiento -->
+  <div class="modal" id="tracking-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title"><i class="fas fa-truck"></i> Seguimiento de Pedido</h3>
+        <button class="close-modal" data-modal="tracking-modal">&times;</button>
+      </div>
+      <div class="modal-body" id="tracking-content">
+        <!-- El contenido se cargará dinámicamente -->
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>&copy; 2023 Armario de Chiapas. Todos los derechos reservados.</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const ordersContainer = document.getElementById('orders-container');
+      let orders = JSON.parse(localStorage.getItem('orders')) || [];
+      
+      // Generar un número de guía aleatorio
+      function generateTrackingNumber() {
+        const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const randomLetters = letters.charAt(Math.floor(Math.random() * letters.length)) + 
+                             letters.charAt(Math.floor(Math.random() * letters.length));
+        const randomNumbers = Math.floor(1000000000 + Math.random() * 9000000000);
+        return randomLetters + randomNumbers.toString().substring(0, 9);
+      }
+      
+      // Generar una fecha futura aleatoria para eventos de seguimiento
+      function generateFutureDate(days, hours) {
+        const date = new Date();
+        date.setDate(date.getDate() + days);
+        date.setHours(date.getHours() + hours);
+        return date;
+      }
+      
+      // Formatear fecha para mostrar
+      function formatDate(date) {
+        return date.toLocaleDateString('es-MX', { 
+          day: 'numeric', 
+          month: 'long', 
+          hour: '2-digit', 
+          minute: '2-digit' 
+        });
+      }
+      
+      // Simular timeline de seguimiento al estilo Mercado Libre
+      function generateTrackingTimeline(orderDate) {
+        const timeline = [];
+        const date = new Date(orderDate);
+        
+        // Paso 1: Pedido realizado
+        timeline.push({
+          status: 'Pedido realizado',
+          description: 'Hemos recibido tu pedido',
+          date: formatDate(date),
+          completed: true,
+          current: false
+        });
+        
+        // Paso 2: Pedido confirmado (1-3 horas después)
+        const confirmedDate = new Date(date);
+        confirmedDate.setHours(date.getHours() + Math.floor(Math.random() * 3) + 1);
+        timeline.push({
+          status: 'Pedido confirmado',
+          description: 'Hemos confirmado tu pago y estamos preparando tu pedido',
+          date: formatDate(confirmedDate),
+          completed: true,
+          current: false
+        });
+        
+        // Paso 3: Pedido empacado (al día siguiente por la mañana)
+        const packedDate = new Date(confirmedDate);
+        packedDate.setDate(packedDate.getDate() + 1);
+        packedDate.setHours(9, 15, 0);
+        timeline.push({
+          status: 'Pedido empacado',
+          description: 'Tu pedido está listo para enviarse',
+          date: formatDate(packedDate),
+          completed: true,
+          current: false
+        });
+        
+        // Paso 4: En camino (mismo día por la tarde)
+        const shippedDate = new Date(packedDate);
+        shippedDate.setHours(14, 30, 0);
+        timeline.push({
+          status: 'En camino',
+          description: 'Tu pedido ha sido enviado',
+          date: formatDate(shippedDate),
+          completed: true,
+          current: true
+        });
+        
+        // Paso 5: En tránsito (1-2 días después)
+        const transitDate = new Date(shippedDate);
+        transitDate.setDate(transitDate.getDate() + Math.floor(Math.random() * 2) + 1);
+        timeline.push({
+          status: 'En tránsito',
+          description: 'Tu pedido está en camino a la ciudad de destino',
+          date: formatDate(transitDate),
+          completed: false,
+          current: false
+        });
+        
+        // Paso 6: En centro de distribución (1 día después)
+        const distributionDate = new Date(transitDate);
+        distributionDate.setDate(distributionDate.getDate() + 1);
+        timeline.push({
+          status: 'En centro de distribución',
+          description: 'Tu pedido ha llegado a la ciudad de destino',
+          date: formatDate(distributionDate),
+          completed: false,
+          current: false
+        });
+        
+        // Paso 7: En reparto (mismo día por la tarde)
+        const deliveryDate = new Date(distributionDate);
+        deliveryDate.setHours(15, 0, 0);
+        timeline.push({
+          status: 'En reparto',
+          description: 'Tu pedido está siendo entregado',
+          date: formatDate(deliveryDate),
+          completed: false,
+          current: false
+        });
+        
+        // Paso 8: Entregado (1 día después)
+        const deliveredDate = new Date(deliveryDate);
+        deliveredDate.setDate(deliveredDate.getDate() + 1);
+        timeline.push({
+          status: 'Entregado',
+          description: 'Tu pedido ha sido entregado',
+          date: formatDate(deliveredDate),
+          completed: false,
+          current: false
+        });
+        
+        return timeline;
+      }
+      
+      // Función para actualizar el estado de un pedido en localStorage
+      function updateOrderStatus(orderId, newStatus) {
+        const updatedOrders = orders.map(order => {
+          if (order.id === orderId) {
+            return { ...order, status: newStatus };
+          }
+          return order;
+        });
+        
+        localStorage.setItem('orders', JSON.stringify(updatedOrders));
+        orders = updatedOrders;
+      }
+      
+      // Función para obtener la imagen del producto desde el localStorage
+      function getProductImage(productName) {
+        // Intenta obtener la imagen del pedido guardado
+        const orderWithImage = orders.find(order => 
+          order.items.some(item => item.name === productName && item.image)
+        );
+        
+        if (orderWithImage) {
+          const productItem = orderWithImage.items.find(item => item.name === productName);
+          return productItem.image;
+        }
+        
+        // Si no se encuentra, usa un mapeo de imágenes por defecto
+        const defaultImages = {
+          "Camisa bordada": "https://via.placeholder.com/150/8B0000/FFFFFF?text=Camisa",
+          "Pantalón tradicional": "https://via.placeholder.com/150/8B0000/FFFFFF?text=Pantalón",
+          "Vestido artesanal": "https://via.placeholder.com/150/8B0000/FFFFFF?text=Vestido",
+          "Rebozo chiapaneco": "https://via.placeholder.com/150/8B0000/FFFFFF?text=Rebozo",
+          "Comiseta tradicional de algodón": "https://via.placeholder.com/150/8B0000/FFFFFF?text=Comiseta"
+        };
+        
+        return defaultImages[productName] || 'https://via.placeholder.com/150/8B0000/FFFFFF?text=Producto';
+      }
+
+      // Función para mostrar los detalles del pedido en el modal
+      function showOrderDetails(order) {
+        const modal = document.getElementById('order-details-modal');
+        const content = document.getElementById('order-details-content');
+        
+        // Generar HTML para los items del pedido
+        let itemsHTML = '';
+        order.items.forEach(item => {
+          const productImage = item.image || getProductImage(item.name);
+          itemsHTML += `
+            <div class="order-item" style="padding: 0.75rem 0; border-bottom: 1px solid var(--border-color);">
+              <div class="item-info" style="display: flex; align-items: center; gap: 1rem;">
+                <img src="${productImage}" alt="${item.name}" style="width: 60px; height: 60px; border-radius: 8px; object-fit: cover; border: 1px solid var(--border-color);">
+                <div>
+                  <div style="font-weight: 500;">${item.name}</div>
+                  <div style="color: var(--light-text); font-size: 0.9rem;">
+                    Talla: ${item.size || 'Única'} • Cantidad: ${item.quantity}
+                  </div>
+                  <div style="font-weight: 600; margin-top: 0.25rem;">$${(item.price * item.quantity).toFixed(2)}</div>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+        
+        // Determinar la clase CSS según el estado
+        let statusClass = 'status-pending';
+        let statusText = 'Pendiente';
+        
+        if (order.status === 'Enviado') {
+          statusClass = 'status-shipped';
+          statusText = 'Enviado';
+        } else if (order.status === 'Completado') {
+          statusClass = 'status-completed';
+          statusText = 'Completado';
+        }
+        
+        // Construir el contenido del modal
+        content.innerHTML = `
+          <div class="order-details-section">
+            <h4 class="order-details-title"><i class="fas fa-info-circle"></i> Información del Pedido</h4>
+            <div class="order-details-info">
+              <div class="detail-row">
+                <span class="detail-label">Número de pedido:</span>
+                <span class="detail-value">#${order.id}</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Fecha:</span>
+                <span class="detail-value">${order.date}</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Estado:</span>
+                <span class="detail-value">
+                  <span class="order-status ${statusClass}" style="display: inline-block; padding: 0.25rem 0.75rem;">
+                    ${statusText}
+                  </span>
+                </span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Total:</span>
+                <span class="detail-value">$${order.total.toFixed(2)}</span>
+              </div>
+              ${order.paymentMethod ? `
+                <div class="detail-row">
+                  <span class="detail-label">Método de pago:</span>
+                  <span class="detail-value">${order.paymentMethod}</span>
+                </div>
+              ` : ''}
+            </div>
+          </div>
+          
+          <div class="order-details-section">
+            <h4 class="order-details-title"><i class="fas fa-box-open"></i> Productos (${order.items.length})</h4>
+            <div>
+              ${itemsHTML}
+            </div>
+          </div>
+          
+          <div class="order-details-section">
+            <div style="display: flex; justify-content: center;">
+              <button class="btn btn-tracking" id="view-tracking" data-order-id="${order.id}">
+                <i class="fas fa-truck"></i> Ver seguimiento de envío
+              </button>
+            </div>
+          </div>
+        `;
+        
+        // Agregar evento al botón de seguimiento
+        document.getElementById('view-tracking').addEventListener('click', () => {
+          showTrackingInfo(order);
+          modal.style.display = 'none';
+        });
+        
+        modal.style.display = 'flex';
+      }
+      
+      // Función para mostrar la información de seguimiento
+      function showTrackingInfo(order) {
+        const modal = document.getElementById('tracking-modal');
+        const content = document.getElementById('tracking-content');
+        
+        // Generar timeline de seguimiento si no existe
+        if (!order.trackingTimeline) {
+          order.trackingTimeline = generateTrackingTimeline(new Date());
+          // Guardar en localStorage
+          const updatedOrders = orders.map(o => {
+            if (o.id === order.id) {
+              return { ...o, trackingTimeline: order.trackingTimeline };
+            }
+            return o;
+          });
+          localStorage.setItem('orders', JSON.stringify(updatedOrders));
+          orders = updatedOrders;
+        }
+        
+        // Generar número de guía si no existe
+        if (!order.trackingNumber) {
+          order.trackingNumber = generateTrackingNumber();
+          // Guardar en localStorage
+          const updatedOrders = orders.map(o => {
+            if (o.id === order.id) {
+              return { ...o, trackingNumber: order.trackingNumber };
+            }
+            return o;
+          });
+          localStorage.setItem('orders', JSON.stringify(updatedOrders));
+          orders = updatedOrders;
+        }
+        
+        // Generar HTML para el timeline
+        let timelineHTML = '';
+        order.trackingTimeline.forEach((step, index) => {
+          const isCompleted = index < order.trackingTimeline.findIndex(s => s.current) || step.completed;
+          const isCurrent = step.current;
+          
+          timelineHTML += `
+            <div class="timeline-step ${isCompleted ? 'completed' : ''} ${isCurrent ? 'active' : ''}">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <div class="timeline-title">${step.status}</div>
+                <div class="timeline-description">${step.description}</div>
+                <div class="timeline-date">${step.date}</div>
+                ${isCurrent ? `
+                  <div class="tracking-info">
+                    <div>
+                      <strong>Número de guía:</strong> 
+                      <span class="tracking-number">${order.trackingNumber}</span>
+                    </div>
+                    <div class="carrier-info">
+                      <strong>Transportista:</strong> Estafeta
+                    </div>
+                  </div>
+                ` : ''}
+              </div>
+            </div>
+          `;
+        });
+        
+        // Construir el contenido del modal
+        content.innerHTML = `
+          <div style="margin-bottom: 1.5rem;">
+            <h4 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Pedido #${order.id}</h4>
+            <p style="color: var(--light-text);">Realizado el ${order.date}</p>
+          </div>
+          
+          <div class="timeline">
+            ${timelineHTML}
+          </div>
+          
+          <div style="margin-top: 1.5rem; background: rgba(139, 0, 0, 0.05); padding: 1rem; border-radius: 8px;">
+            <h4 style="font-size: 1rem; margin-bottom: 0.5rem; color: var(--primary-color);">
+              <i class="fas fa-info-circle"></i> Información importante
+            </h4>
+            <p style="font-size: 0.9rem;">
+              El tiempo de entrega estimado es de 3 a 5 días hábiles. Puedes rastrear tu paquete en el sitio web de Estafeta con el número de guía proporcionado.
+            </p>
+          </div>
+        `;
+        
+        modal.style.display = 'flex';
+      }
+
+      // Cerrar modales al hacer clic en el botón de cerrar
+      document.querySelectorAll('.close-modal').forEach(button => {
+        button.addEventListener('click', function() {
+          const modalId = this.getAttribute('data-modal');
+          document.getElementById(modalId).style.display = 'none';
+        });
+      });
+      
+      // Cerrar modales al hacer clic fuera del contenido
+      document.querySelectorAll('.modal').forEach(modal => {
+        modal.addEventListener('click', function(e) {
+          if (e.target === this) {
+            this.style.display = 'none';
+          }
+        });
+      });
+
+      // Función para renderizar los pedidos
+      function renderOrders() {
+        ordersContainer.innerHTML = '';
+        
+        if (orders.length === 0) {
+          ordersContainer.innerHTML = `
+            <div class="empty-orders">
+              <div class="empty-icon">
+                <i class="fas fa-box-open"></i>
+              </div>
+              <h3 class="empty-title">No tienes pedidos registrados</h3>
+              <p class="empty-text">Parece que aún no has realizado ningún pedido. Visita nuestra tienda para descubrir nuestros productos artesanales.</p>
+              <a href="success.html" class="btn btn-primary">
+                <i class="fas fa-store"></i> Ir a la tienda
+              </a>
+            </div>
+          `;
+          return;
+        }
+
+        // Mostrar pedidos en orden inverso (el más reciente primero)
+        orders.slice().reverse().forEach(order => {
+          const orderElement = document.createElement('div');
+          orderElement.className = 'order-card';
+          orderElement.id = `order-${order.id}`;
+          
+          let itemsHTML = '';
+          order.items.forEach(item => {
+            // Obtener la imagen del producto
+            const productImage = item.image || getProductImage(item.name);
+            
+            itemsHTML += `
+              <div class="order-item">
+                <div class="item-info">
+                  <img src="${productImage}" 
+                       alt="${item.name}" class="item-image">
+                  <div>
+                    <div class="item-name">${item.name}</div>
+                    <div class="item-quantity">Talla: ${item.size || 'Única'} • Cantidad: ${item.quantity}</div>
+                  </div>
+                </div>
+                <div class="item-price">$${(item.price * item.quantity).toFixed(2)}</div>
+              </div>
+            `;
+          });
+
+          // Determinar la clase CSS según el estado
+          let statusClass = 'status-pending';
+          let statusText = 'Pendiente';
+          
+          if (order.status === 'Enviado') {
+            statusClass = 'status-shipped';
+            statusText = 'Enviado';
+          } else if (order.status === 'Completado') {
+            statusClass = 'status-completed';
+            statusText = 'Completado';
+          }
+
+          orderElement.innerHTML = `
+            <div class="order-header">
+              <div>
+                <div class="order-id">Pedido #${order.id}</div>
+                <div class="order-date">${order.date}</div>
+              </div>
+              <span class="order-status ${statusClass}" id="status-${order.id}">
+                ${statusText}
+              </span>
+            </div>
+            
+            <div class="order-body">
+              <div class="order-items">
+                ${itemsHTML}
+              </div>
+            </div>
+            
+            <div class="order-footer">
+              <div class="order-total">
+                Total: $${order.total.toFixed(2)}
+              </div>
+              <div class="order-actions">
+                <button class="btn btn-details" data-order-id="${order.id}">
+                  <i class="fas fa-eye"></i> Ver detalles
+                </button>
+              </div>
+            </div>
+          `;
+
+          ordersContainer.appendChild(orderElement);
+          
+          // Agregar evento al botón de detalles
+          orderElement.querySelector('.btn-details').addEventListener('click', () => {
+            showOrderDetails(order);
+          });
+          
+          // Si el pedido está pendiente, programar el cambio a "Enviado" después de 10 segundos
+          if (order.status === 'Pendiente') {
+            setTimeout(() => {
+              updateOrderStatus(order.id, 'Enviado');
+              
+              // Actualizar la visualización
+              const statusElement = document.getElementById(`status-${order.id}`);
+              if (statusElement) {
+                statusElement.textContent = 'Enviado';
+                statusElement.className = 'order-status status-shipped';
+              }
+              
+              // Opcional: Programar cambio a "Completado" después de otro tiempo
+              setTimeout(() => {
+                updateOrderStatus(order.id, 'Completado');
+                
+                const statusElement = document.getElementById(`status-${order.id}`);
+                if (statusElement) {
+                  statusElement.textContent = 'Completado';
+                  statusElement.className = 'order-status status-completed';
+                }
+              }, 20000); // 20 segundos adicionales para completado
+            }, 10000); // 10 segundos para enviado
+          }
+        });
+      }
+
+      // Inicializar la visualización de pedidos
+      renderOrders();
+    });
+  </script>
+</body>
+</html>
